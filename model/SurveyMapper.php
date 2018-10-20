@@ -3,6 +3,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/Option.php");
+require_once(__DIR__."/../model/OptionMapper.php");
 require_once(__DIR__."/../model/Survey.php");
 
 class SurveyMapper {
@@ -41,18 +42,8 @@ WHERE surveys.creator_id = ?");
             return NULL;
         }
 
-        $stmt = $this->db->prepare("SELECT * FROM options WHERE survey_id = ?");
-        $stmt->execute(array($survey_id));
-        $options_arr = $stmt->fetch(PDO::FETCH_ASSOC);
-        $options = array();
-        
-        foreach($options_arr as $option_row) {
-            $op = new Option($option_row["id"], $option_row["day"], $option_row["start"], $option_row["end"]);
-            array_push($options, $op);
-        }
-        
         $creator = new User($survey_row["users.id"], $survey_row["users.name"], $survey_row["users.surname"], $survey_row["users.email"], $survey_row["users.pass"]);
-        $survey = new Survey($survey_row["surveys.id"], $survey_row["surveys.title"], $survey_row["surveys.description"], $creator, $options);
+        $survey = new Survey($survey_row["surveys.id"], $survey_row["surveys.title"], $survey_row["surveys.description"], $creator);
         return $survey;
     }
 
