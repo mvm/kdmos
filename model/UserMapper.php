@@ -23,7 +23,7 @@ class UserMapper {
         if($user == NULL) {
             return NULL;
         } else {
-        return new User($user["id"], $user["username"], $user["usersurname"], $user["email"], $user["pass"]);
+        return new User($user["id"], $user["name"], $user["surname"], $user["email"], $user["pass"]);
 		}
 	}
 	
@@ -31,14 +31,14 @@ class UserMapper {
 	* Fetch by email.
 	*/
 	
-	public function findById ($email){
+	public function findByEmail ($email){
 		$stmt = $this->db->prepare("SELECT * FROM users WHERE email=?");
         $stmt->execute(array($email));
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if($user == NULL) {
             return NULL;
         } else {
-        return new User($user["id"], $user["username"], $user["usersurname"], $user["email"], $user["pass"]);
+        return new User($user["id"], $user["name"], $user["surname"], $user["email"], $user["pass"]);
 		}
 	}
 	/**
@@ -46,12 +46,12 @@ class UserMapper {
 	*/
 	public function save(User $user) {
 		$stmt = $this->db->prepare("INSERT INTO users values (?,?,?,?)");
-		$stmt->execute(array($user->getUsername(), $user->getUsersurname(),$user->getEmail(), $user->getPass()));
+		$stmt->execute(array($user->getName(), $user->getSurname(),$user->getEmail(), $user->getPass()));
 	}
 
 	public function update(User $user) {
-        $stmt = $this->db->prepare("UPDATE users SET username=?, usersurname=?, email = ?, pass = ? WHERE id = ?");
-        $stmt->execute(array($user->getUsername(), $user->getUsersurname(), $user->getEmail(), $user->getPass(), $user->getId()));
+        $stmt = $this->db->prepare("UPDATE users SET name=?, surname=?, email = ?, pass = ? WHERE id = ?");
+        $stmt->execute(array($user->getName(), $user->getSurname(), $user->getEmail(), $user->getPass(), $user->getId()));
     }
     public function delete(User $user) {
         $stmt = $this->db->prepare("DELETE FROM Users WHERE id = ?");

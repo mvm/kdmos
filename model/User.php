@@ -6,18 +6,18 @@ require_once(__DIR__."/../core/ValidationException.php");
 class User {
 
 	
-	private $username;
-	private $usersurname;
+	private $name;
+	private $surname;
 	private $email;
 	private $pass;
 	
 	/**
 	* Constructor
 	*/
-	public function __construct($id=NULL, $username=NULL, $usersurname=NULL, $email=NULL, $pass=NULL) {
+	public function __construct($id=NULL, $name=NULL, $surname=NULL, $email=NULL, $pass=NULL) {
 		$this->id = $id;
-		$this->username = $username;
-		$this->usersurname = $usersurname;
+		$this->name = $name;
+		$this->surname = $surname;
 		$this->email = $email;
 		$this->pass = $pass;
 	}
@@ -34,25 +34,25 @@ class User {
 	}
 	
 	/**
-	* Geter and seter of username.
+	* Geter and seter of name.
 	*/
-	public function getUsername() {
-		return $this->username;
+	public function getName() {
+		return $this->name;
 	}
 
-	public function setUsername($username) {
-		$this->username = $username;
+	public function setName($name) {
+		$this->name = $name;
 	}
 
 	/**
-	* Getter and setter of usersurname.
+	* Getter and setter of surname.
 	*/
-	public function getUsersurname() {
-		return $this->usersurname;
+	public function getSurname() {
+		return $this->surname;
 	}
 
-	public function setUsersurname($usersurname) {
-		$this->usersurname = $usersurname;
+	public function setSurname($surname) {
+		$this->surname = $surname;
 	}
 
 	/**
@@ -83,8 +83,8 @@ class User {
 	*/
 	public function checkIsValidForRegister() {
 		$errors = array();
-		if (strlen($this->username) < 5) {
-			$errors["username"] = "Username must be at least 5 characters length";
+		if (strlen($this->name) < 5) {
+			$errors["username"] = "Name must be at least 5 characters length";
 		}
 		if (strlen($this->pass) < 5) {
 			$errors["pass"] = "Password must be at least 5 characters length";
