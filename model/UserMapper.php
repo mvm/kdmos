@@ -13,13 +13,51 @@ class UserMapper {
 	}
 
 	/**
-	* Saves a User into the database
+	* Fetch by Id.
 	*/
-	public function save($user) {
-		$stmt = $this->db->prepare("INSERT INTO users values (?,?)");
-		$stmt->execute(array($user->getUsername(), $user->getPasswd()));
+	
+	public function findById ($id){
+		$stmt = $this->db->prepare("SELECT * FROM users WHERE id=?");
+        $stmt->execute(array($id));
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($user == NULL) {
+            return NULL;
+        } else {
+        return new User($user["id"], $user["username"], $user["usersurname"], $user["email"], $user["pass"]);
+		}
+	}
+	
+	/**
+	* Fetch by email.
+	*/
+	
+	public function findById ($email){
+		$stmt = $this->db->prepare("SELECT * FROM users WHERE email=?");
+        $stmt->execute(array($email));
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($user == NULL) {
+            return NULL;
+        } else {
+        return new User($user["id"], $user["username"], $user["usersurname"], $user["email"], $user["pass"]);
+		}
+	}
+	/**
+	* Saves, updates and deletes a User into the database
+	*/
+	public function save(User $user) {
+		$stmt = $this->db->prepare("INSERT INTO users values (?,?,?,?)");
+		$stmt->execute(array($user->getUsername(), $user->getUsersurname(),$user->getEmail(), $user->getPass()));
 	}
 
+	public function update(User $user) {
+        $stmt = $this->db->prepare("UPDATE users SET username=?, usersurname=?, email = ?, pass = ? WHERE id = ?");
+        $stmt->execute(array($user->getUsername(), $user->getUsersurname(), $user->getEmail(), $user->getPass(), $user->getId()));
+    }
+    public function delete(User $user) {
+        $stmt = $this->db->prepare("DELETE FROM Users WHERE id = ?");
+        $stmt->execute($user->getId());
+    }
+	
 	/**
 	* Checks if a given user is already in the database searching for the email
 	*/

@@ -74,7 +74,7 @@ class User {
 		return $this->pass;
 	}
 	
-	public function setPassword($pass) {
+	public function setPass($pass) {
 		$this->pass = $pass;
 	}
 
