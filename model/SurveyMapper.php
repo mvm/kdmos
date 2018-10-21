@@ -3,7 +3,6 @@ require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/Option.php");
-require_once(__DIR__."/../model/OptionMapper.php");
 require_once(__DIR__."/../model/Survey.php");
 
 class SurveyMapper {
