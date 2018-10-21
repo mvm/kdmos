@@ -1,94 +1,96 @@
 <?php
-// file: model/User.php
 
 require_once(__DIR__."/../core/ValidationException.php");
 
-/**
-* Class User
-*
-* Represents a User in the blog
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class User {
 
-	/**
-	* The user name of the user
-	* @var string
-	*/
+	
 	private $username;
-
+	private $usersurname;
+	private $email;
+	private $pass;
+	
 	/**
-	* The password of the user
-	* @var string
+	* Constructor
 	*/
-	private $passwd;
-
-	/**
-	* The constructor
-	*
-	* @param string $username The name of the user
-	* @param string $passwd The password of the user
-	*/
-	public function __construct($username=NULL, $passwd=NULL) {
+	public function __construct($id=NULL, $username=NULL, $usersurname=NULL, $email=NULL, $pass=NULL) {
+		$this->id = $id;
 		$this->username = $username;
-		$this->passwd = $passwd;
+		$this->usersurname = $usersurname;
+		$this->email = $email;
+		$this->pass = $pass;
 	}
 
 	/**
-	* Gets the username of this user
-	*
-	* @return string The username of this user
+	* Getter and setter of id.
+	*/
+	public function getId() {
+		return $this->id;
+	}
+
+	public function setId($id) {
+		$this->id = $id;
+	}
+	
+	/**
+	* Geter and seter of username.
 	*/
 	public function getUsername() {
 		return $this->username;
 	}
 
-	/**
-	* Sets the username of this user
-	*
-	* @param string $username The username of this user
-	* @return void
-	*/
 	public function setUsername($username) {
 		$this->username = $username;
 	}
 
 	/**
-	* Gets the password of this user
-	*
-	* @return string The password of this user
+	* Getter and setter of usersurname.
 	*/
-	public function getPasswd() {
-		return $this->passwd;
+	public function getUsersurname() {
+		return $this->usersurname;
 	}
-	/**
-	* Sets the password of this user
-	*
-	* @param string $passwd The password of this user
-	* @return void
-	*/
-	public function setPassword($passwd) {
-		$this->passwd = $passwd;
+
+	public function setUsersurname($usersurname) {
+		$this->usersurname = $usersurname;
 	}
 
 	/**
-	* Checks if the current user instance is valid
-	* for being registered in the database
-	*
-	* @throws ValidationException if the instance is
-	* not valid
-	*
-	* @return void
+	* Getter and setter of email.	
+	*/
+	
+	public function getEmail() {
+		return $this->email;
+	}
+	
+	public function setEmail($email){
+		$this->email = $email;
+	}
+	
+	/**
+	* Getter and setter of pass.
+	*/
+	public function getPass() {
+		return $this->pass;
+	}
+	
+	public function setPassword($pass) {
+		$this->pass = $pass;
+	}
+
+	/**
+	* Validation for Register
 	*/
 	public function checkIsValidForRegister() {
 		$errors = array();
 		if (strlen($this->username) < 5) {
 			$errors["username"] = "Username must be at least 5 characters length";
-
 		}
-		if (strlen($this->passwd) < 5) {
-			$errors["passwd"] = "Password must be at least 5 characters length";
+		if (strlen($this->pass) < 5) {
+			$errors["pass"] = "Password must be at least 5 characters length";
+		}
+		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+			$errors["email"] = "Esta dirección de correo no es válida.";
 		}
 		if (sizeof($errors)>0){
 			throw new ValidationException($errors, "user is not valid");
