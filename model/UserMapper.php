@@ -46,7 +46,7 @@ class UserMapper {
 	* Saves, updates and deletes a User into the database
 	*/
 	public function save(User $user) {
-		$stmt = $this->db->prepare("INSERT INTO users values (?,?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO users(name,surname,email,pass) values (?,?,?,?)");
 		$stmt->execute(array($user->getName(), $user->getSurname(),$user->getEmail(), $user->getPass()));
 	}
 
@@ -60,14 +60,26 @@ class UserMapper {
     }
 	
 	/**
-	* Checks if a given user is already in the database searching for the email
+	* Checks if a given user already exist in the database searching for the email
 	*/
 	public function userExists($email) {
-		$stmt = $this->db->prepare("SELECT count(id) FROM users where email=?");
+		$stmt = $this->db->prepare("SELECT count(name) FROM users WHERE email=?");
 		$stmt->execute(array($email));
 		if ($stmt->fetchColumn() > 0) {
 			return true;
 		}
 	}
+	
+	/**
+	* Checks if there is a correct login
+	*/
 
+	public function isValidUser($email, $pass) {
+		$stmt = $this->db->prepare("SELECT count(name) FROM users WHERE email=? and pass=?");
+		$stmt->execute(array($email, $pass));
+		if ($stmt->fetchColumn() > 0) {
+			return true;
+		}
+	}
+	
 }
