@@ -1,21 +1,34 @@
 <?php
-//file: view/users/register.php
 
 require_once(__DIR__."/../../core/ViewManager.php");
+require_once(__DIR__."/../../core/I18n.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $user = $view->getVariable("user");
 $view->setVariable("title", "Register");
 ?>
-<h1><?= i18n("Register")?></h1>
-<form action="index.php?controller=users&amp;action=register" method="POST">
-	<?= i18n("Username")?>: <input type="text" name="username"
-	value="<?= $user->getUsername() ?>">
-	<?= isset($errors["username"])?i18n($errors["username"]):"" ?><br>
 
-	<?= i18n("Password")?>: <input type="password" name="passwd"
-	value="">
-	<?= isset($errors["passwd"])?i18n($errors["passwd"]):"" ?><br>
-
-	<input type="submit" value="<?= i18n("Register")?>">
-</form>
+			<div class="container mt-4" id="main">
+				<form action="index.php?controller=users&amp;action=register" method="POST">
+					<div class="row">
+                            <div class="col">
+								<div class="container mt-3 mb-3">
+								<h1><?= i18n("Register")?></h1>
+                                    <div class="form-group">
+                                        <input type="text" name="name" class="form-control" placeholder=<?= i18n("Name")?>></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="surname" class="form-control" placeholder=<?= i18n("Surname")?>></input>
+                                    </div>
+									<div class="form-group">
+                                        <input type="text" name="email" class="form-control" placeholder=<?= i18n("Email")?>></input>
+                                    </div>
+									<div class="form-group">
+                                        <input type="password" name="pass" class="form-control" placeholder=<?= i18n("Password")?>></input>
+                                    </div>
+                                    <button type="submit" class="btn btn-light"><?= i18n("Sign up")?></button>
+								</div>
+							</div>	
+					</div>
+				</form>
+			</div>

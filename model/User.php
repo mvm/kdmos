@@ -5,7 +5,7 @@ require_once(__DIR__."/../core/ValidationException.php");
 
 class User {
 
-	
+	private $id;
 	private $name;
 	private $surname;
 	private $email;

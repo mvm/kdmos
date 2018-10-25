@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2018 a las 16:36:15
+-- Tiempo de generación: 25-10-2018 a las 12:10:34
 -- Versión del servidor: 10.1.29-MariaDB
 -- Versión de PHP: 7.2.0
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `options` (
   `id` int(10) UNSIGNED NOT NULL,
-  `survey_id` int(10) UNSIGNED NOT NULL,
+  `survey_id` varchar(255) NOT NULL,
   `day` date NOT NULL,
   `start` time NOT NULL,
   `end` time NOT NULL
@@ -43,7 +43,7 @@ CREATE TABLE `options` (
 --
 
 CREATE TABLE `surveys` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(600) DEFAULT NULL,
   `creator` int(10) UNSIGNED NOT NULL
@@ -62,6 +62,14 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `pass` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `surname`, `email`, `pass`) VALUES
+(1, 'Alberto', 'Lopez', 'alberto@gmail.com', 'pruebatsw'),
+(2, 'Manolo', 'Eldelbombo', 'manolo@gmail.com', 'manolete');
 
 -- --------------------------------------------------------
 
@@ -117,16 +125,10 @@ ALTER TABLE `options`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `surveys`
---
-ALTER TABLE `surveys`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -136,7 +138,7 @@ ALTER TABLE `users`
 -- Filtros para la tabla `options`
 --
 ALTER TABLE `options`
-  ADD CONSTRAINT `fk_survey_id` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_survey` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `surveys`
