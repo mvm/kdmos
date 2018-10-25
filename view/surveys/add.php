@@ -7,15 +7,15 @@ $view->setVariable("title", "Add survey");
 ?>
 
 <div class="container mt-4" id="main">
-  <form action="index.php?controller=surveys&amp;action=register" method="POST">
+  <form action="index.php?controller=surveys&amp;action=add" method="POST">
     <div class="row">
       <div class="col">
 	<div class="container mt-3 mb-3">
 	  <div class="form-group">
-	    <input type="text" name="title" class="form-control-lg main-control" placeholder=<?= i18n("Title") ?></input>
+	    <input type="text" name="title" class="form-control-lg main-control" placeholder=<?= i18n("Title"); ?>></input>
 	  </div>
 	  <div class="form-group">
-	    <input type="text" name="description" class="form-control" placeholder=<?= i18n("Description") ?></input>
+	    <input type="text" name="description" class="form-control" placeholder=<?= i18n("Description"); ?>></input>
 	  </div>
 	  <!--  Campo de envío de correos (para entrega 4):    
 		
@@ -29,7 +29,7 @@ $view->setVariable("title", "Add survey");
 	  <input type="hidden" id="entry_date_num" name="num_dates" value=""/>
 	  <div class="container col-md-8 col-lg-6 col-xl-4">
 	    <div class="row">
-	      <span><?= i18n("In which dates will you meet?") ?></span>
+	      <span><?= i18n("In which dates will you meet?"); ?></span>
 	    </div>
 	    <div class="form-group row" id="entry_date_list">
 	      <!-- insert date pickers here -->
@@ -64,21 +64,21 @@ $view->setVariable("title", "Add survey");
                          class="form-control datetimepicker-input col-6" 
                          data-toggle="datetimepicker" 
                          data-target="#${date_id}_day" 
-                         placeholder=<?= i18n("Day...") ?></input>
+                         placeholder=<?= i18n("Day...") ?>></input>
                   <input type="text"
                          id="${date_id}_start"
                          name="${date_name}_start"
                          class="form-control datetimepicker-input col-3"
                          data-toggle="datetimepicker"
                          data-target="#${date_id}_start"
-                         placeholder=<?= i18n("Begin...") ?></input>
+                         placeholder=<?= i18n("Begin...") ?>></input>
                   <input type="text"
                          id="${date_id}_end"
                          name="${date_name}_end"
                          class="form-control datetimepicker-input col-3"
                          data-toggle="datetimepicker"
                          data-target="#${date_id}_end"
-                         placeholder=<?= i18n("End...") ?></input>
+                         placeholder=<?= i18n("End...") ?>></input>
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <i id="${date_id}_del" class="fa fa-times"></i>
