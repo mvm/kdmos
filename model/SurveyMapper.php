@@ -15,7 +15,7 @@ class SurveyMapper {
     public function findByCreator($creatorid) {
         $stmt = $this->db->prepare("SELECT 
 surveys.id, surveys.title, surveys.description,
-users.id, users.username
+users.id, users.name, users.surname, users.email, users.pass
 FROM surveys JOIN users ON surveys.creator_id = users.id
 WHERE surveys.creator_id = ?");
         $stmt->execute(array($creatorid));
