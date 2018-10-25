@@ -76,7 +76,7 @@ $currentuser = $view->getVariable("currentusername");
                                         <input class="btn" type="submit" value=<?= i18n("Login")?>>
                                     </form>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="index.php?controller=users&amp;action=register"><?= i18n("New? Sing up")?></a>
+                                    <a class="dropdown-item" href="index.php?controller=users&amp;action=register"><?= i18n("New? Sign up")?></a>
                                 </div>
 				</div>
 				<?php endif ?>
