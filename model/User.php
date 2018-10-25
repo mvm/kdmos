@@ -84,7 +84,7 @@ class User {
 	public function checkIsValidForRegister() {
 		$errors = array();
 		if (strlen($this->name) < 5) {
-			$errors["username"] = "Name must be at least 5 characters length";
+			$errors["name"] = "Name must be at least 5 characters length";
 		}
 		if (strlen($this->pass) < 5) {
 			$errors["pass"] = "Password must be at least 5 characters length";
