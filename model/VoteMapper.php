@@ -1,7 +1,7 @@
  <?php
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/../model/Vote.php");
-require_once(__DIR__."/../model/Survey.php");
+require_once(__DIR__."/../model/Option.php");
 require_once(__DIR__."/../model/User.php");
 
 class VoteMapper{
