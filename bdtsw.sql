@@ -1,162 +1,96 @@
--- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2018 a las 12:10:34
--- Versión del servidor: 10.1.29-MariaDB
--- Versión de PHP: 7.2.0
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `bdtsw`
---
-
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         10.1.29-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win32
+-- HeidiSQL Versión:             9.5.0.5295
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `options`
---
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE TABLE `options` (
-  `id` int(10) UNSIGNED NOT NULL,
+
+-- Volcando estructura de base de datos para bdtsw
+DROP DATABASE IF EXISTS `bdtsw`;
+CREATE DATABASE IF NOT EXISTS `bdtsw` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `bdtsw`;
+
+-- Volcando estructura para tabla bdtsw.options
+DROP TABLE IF EXISTS `options`;
+CREATE TABLE IF NOT EXISTS `options` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `survey_id` varchar(255) NOT NULL,
   `day` date NOT NULL,
   `start` time NOT NULL,
-  `end` time NOT NULL
+  `end` time NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tabla_id` (`survey_id`),
+  CONSTRAINT `fk_survey` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla bdtsw.options: ~0 rows (aproximadamente)
+DELETE FROM `options`;
+/*!40000 ALTER TABLE `options` DISABLE KEYS */;
+/*!40000 ALTER TABLE `options` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `surveys`
---
-
-CREATE TABLE `surveys` (
+-- Volcando estructura para tabla bdtsw.surveys
+DROP TABLE IF EXISTS `surveys`;
+CREATE TABLE IF NOT EXISTS `surveys` (
   `id` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` varchar(600) DEFAULT NULL,
-  `creator` int(10) UNSIGNED NOT NULL
+  `creator` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_creator` (`creator`),
+  CONSTRAINT `fk_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- Volcando datos para la tabla bdtsw.surveys: ~0 rows (aproximadamente)
+DELETE FROM `surveys`;
+/*!40000 ALTER TABLE `surveys` DISABLE KEYS */;
+/*!40000 ALTER TABLE `surveys` ENABLE KEYS */;
 
---
--- Estructura de tabla para la tabla `users`
---
-
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+-- Volcando estructura para tabla bdtsw.users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `pass` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `pass` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `users`
---
-
+-- Volcando datos para la tabla bdtsw.users: ~2 rows (aproximadamente)
+DELETE FROM `users`;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `pass`) VALUES
-(1, 'Alberto', 'Lopez', 'alberto@gmail.com', 'pruebatsw'),
-(2, 'Manolo', 'Eldelbombo', 'manolo@gmail.com', 'manolete');
+	(1, 'Alberto', 'Lopez', 'alberto@gmail.com', 'pruebatsw'),
+	(2, 'Manolo', 'Eldelbombo', 'manolo@gmail.com', 'manolete');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `vote`
---
-
-CREATE TABLE `vote` (
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `option_id` int(10) UNSIGNED NOT NULL,
-  `vote` enum('Y','N','NS') DEFAULT 'NS'
+-- Volcando estructura para tabla bdtsw.vote
+DROP TABLE IF EXISTS `vote`;
+CREATE TABLE IF NOT EXISTS `vote` (
+  `user_id` int(10) unsigned NOT NULL,
+  `option_id` int(10) unsigned NOT NULL,
+  `vote` enum('Y','N','NS') DEFAULT 'NS',
+  PRIMARY KEY (`user_id`,`option_id`),
+  KEY `fk_option_id` (`option_id`),
+  CONSTRAINT `fk_option_id` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `options`
---
-ALTER TABLE `options`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `tabla_id` (`survey_id`);
-
---
--- Indices de la tabla `surveys`
---
-ALTER TABLE `surveys`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_creator` (`creator`);
-
---
--- Indices de la tabla `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `vote`
---
-ALTER TABLE `vote`
-  ADD PRIMARY KEY (`user_id`,`option_id`),
-  ADD KEY `fk_option_id` (`option_id`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `options`
---
-ALTER TABLE `options`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `options`
---
-ALTER TABLE `options`
-  ADD CONSTRAINT `fk_survey` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `surveys`
---
-ALTER TABLE `surveys`
-  ADD CONSTRAINT `fk_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`id`);
-
---
--- Filtros para la tabla `vote`
---
-ALTER TABLE `vote`
-  ADD CONSTRAINT `fk_option_id` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+-- Volcando datos para la tabla bdtsw.vote: ~0 rows (aproximadamente)
+DELETE FROM `vote`;
+/*!40000 ALTER TABLE `vote` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vote` ENABLE KEYS */;
 
 
 GRANT ALL PRIVILEGES ON bdtsw.* to kdamosuser@localhost IDENTIFIED BY "kdamospass";
 
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
