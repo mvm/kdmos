@@ -13,10 +13,12 @@
 
 
 -- Volcando estructura de base de datos para bdtsw
+DROP DATABASE IF EXISTS `bdtsw`;
 CREATE DATABASE IF NOT EXISTS `bdtsw` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bdtsw`;
 
 -- Volcando estructura para tabla bdtsw.options
+DROP TABLE IF EXISTS `options`;
 CREATE TABLE IF NOT EXISTS `options` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `survey_id` varchar(255) NOT NULL,
@@ -34,6 +36,7 @@ DELETE FROM `options`;
 /*!40000 ALTER TABLE `options` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtsw.surveys
+DROP TABLE IF EXISTS `surveys`;
 CREATE TABLE IF NOT EXISTS `surveys` (
   `id` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -50,6 +53,7 @@ DELETE FROM `surveys`;
 /*!40000 ALTER TABLE `surveys` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtsw.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -68,6 +72,7 @@ INSERT INTO `users` (`id`, `name`, `surname`, `email`, `pass`) VALUES
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtsw.vote
+DROP TABLE IF EXISTS `vote`;
 CREATE TABLE IF NOT EXISTS `vote` (
   `user_id` int(10) unsigned NOT NULL,
   `option_id` int(10) unsigned NOT NULL,
@@ -82,7 +87,6 @@ CREATE TABLE IF NOT EXISTS `vote` (
 DELETE FROM `vote`;
 /*!40000 ALTER TABLE `vote` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vote` ENABLE KEYS */;
-
 
 
 GRANT ALL PRIVILEGES ON bdtsw.* to kdamosuser@localhost IDENTIFIED BY "kdamospass";
