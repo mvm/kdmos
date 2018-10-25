@@ -12,10 +12,10 @@ $view->setVariable("title", "Add survey");
       <div class="col">
 	<div class="container mt-3 mb-3">
 	  <div class="form-group">
-	    <input type="text" name="title" class="form-control-lg main-control" placeholder=<?= i18n("Title"); ?>></input>
+	    <input type="text" name="title" class="form-control-lg main-control" placeholder="<?= i18n("Title"); ?>"></input>
 	  </div>
 	  <div class="form-group">
-	    <input type="text" name="description" class="form-control" placeholder=<?= i18n("Description"); ?>></input>
+	    <input type="text" name="description" class="form-control" placeholder="<?= i18n("Description"); ?>"></input>
 	  </div>
 	  <!--  Campo de envío de correos (para entrega 4):    
 		
@@ -40,80 +40,80 @@ $view->setVariable("title", "Add survey");
 	      </a>
 	      <script>
                 
-		$(function() {
-		add_date();
-		});
-                
-		function add_date() {
-		if(typeof add_date.date_num == 'undefined') {
-		add_date.date_num = 1;
-		}
-		var date_num = add_date.date_num;
-		var date_id = "entry_date" + date_num;
-		var date_name = "date" + date_num;
-                
-		date_list = $("#entry_date_num").val().split(" ");
-		date_list.push(date_num);
-		$("#entry_date_num").val(date_list.join(" "));
-		
-		$("#entry_date_list").append(`
-                <div id="${date_id}_group" class="input-group date">
-                  <input type="text" 
-                         id="${date_id}_day"
-                         name="${date_name}_day"
-                         class="form-control datetimepicker-input col-6" 
-                         data-toggle="datetimepicker" 
-                         data-target="#${date_id}_day" 
-                         placeholder=<?= i18n("Day...") ?>></input>
-                  <input type="text"
-                         id="${date_id}_start"
-                         name="${date_name}_start"
-                         class="form-control datetimepicker-input col-3"
-                         data-toggle="datetimepicker"
-                         data-target="#${date_id}_start"
-                         placeholder=<?= i18n("Begin...") ?>></input>
-                  <input type="text"
-                         id="${date_id}_end"
-                         name="${date_name}_end"
-                         class="form-control datetimepicker-input col-3"
-                         data-toggle="datetimepicker"
-                         data-target="#${date_id}_end"
-                         placeholder=<?= i18n("End...") ?>></input>
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <i id="${date_id}_del" class="fa fa-times"></i>
-                    </div>
-                  </div>
-                </div>
-                `);
-                
-		$("#" + date_id + "_day").datetimepicker({
-		format: 'DD/MM/YYYY'
-		});
-		$("#" + date_id + "_start").datetimepicker({
-		format: 'HH:mm'
-		});
-		$("#" + date_id + "_start").on("change.datetimepicker", function(e) {
-		$("#" + date_id + "_end").datetimepicker("minDate", e.date);
-		});
-		$("#" + date_id + "_end").datetimepicker({
-		format: 'HH:mm'
-		});
-		$("#" + date_id + "_del").click(function() {
-		$("#" + date_id + "_group").remove();
-		// remove removed date from num_dates
-		str_date_num = $("#entry_date_num").val().split(" ")
-                .filter(d => d != date_num).join(" ");
-		$("#entry_date_num").val(str_date_num);
-		});
-		add_date.date_num++;
-		}
-                
-		var date_ctr = 1;
-		$("#entry_add_date").click(function() {
-		add_date(date_ctr);
-		date_ctr++;
-		});
+$(function() {
+    add_date();
+});
+
+function add_date() {
+    if(typeof add_date.date_num == 'undefined') {
+	add_date.date_num = 1;
+    }
+    var date_num = add_date.date_num;
+    var date_id = "entry_date" + date_num;
+    var date_name = "date" + date_num;
+    
+    date_list = $("#entry_date_num").val().split(" ");
+    date_list.push(date_num);
+    $("#entry_date_num").val(date_list.join(" "));
+    
+    $("#entry_date_list").append(`
+				 <div id="${date_id}_group" class="input-group date">
+				 <input type="text" 
+				 id="${date_id}_day"
+				 name="${date_name}_day"
+				 class="form-control datetimepicker-input col-6" 
+				 data-toggle="datetimepicker" 
+				 data-target="#${date_id}_day" 
+				 placeholder="<?= i18n("Day...") ?>"></input>
+				 <input type="text"
+				 id="${date_id}_start"
+				 name="${date_name}_start"
+				 class="form-control datetimepicker-input col-3"
+				 data-toggle="datetimepicker"
+				 data-target="#${date_id}_start"
+				 placeholder="<?= i18n("Begin...") ?>"></input>
+				 <input type="text"
+				 id="${date_id}_end"
+				 name="${date_name}_end"
+				 class="form-control datetimepicker-input col-3"
+				 data-toggle="datetimepicker"
+				 data-target="#${date_id}_end"
+				 placeholder="<?= i18n("End...") ?>"></input>
+				 <div class="input-group-append">
+				 <div class="input-group-text">
+				 <i id="${date_id}_del" class="fa fa-times"></i>
+				 </div>
+				 </div>
+				 </div>
+				 `);
+    
+    $("#" + date_id + "_day").datetimepicker({
+	format: 'DD/MM/YYYY'
+    });
+    $("#" + date_id + "_start").datetimepicker({
+	format: 'HH:mm'
+    });
+    $("#" + date_id + "_start").on("change.datetimepicker", function(e) {
+	$("#" + date_id + "_end").datetimepicker("minDate", e.date);
+    });
+    $("#" + date_id + "_end").datetimepicker({
+	format: 'HH:mm'
+    });
+    $("#" + date_id + "_del").click(function() {
+	$("#" + date_id + "_group").remove();
+	// remove removed date from num_dates
+	str_date_num = $("#entry_date_num").val().split(" ")
+            .filter(d => d != date_num).join(" ");
+	$("#entry_date_num").val(str_date_num);
+    });
+    add_date.date_num++;
+}
+
+var date_ctr = 1;
+$("#entry_add_date").click(function() {
+    add_date(date_ctr);
+    date_ctr++;
+});
 	      </script>
 	    </div>
 	  </div>
