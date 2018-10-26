@@ -26,8 +26,7 @@ CREATE TABLE IF NOT EXISTS `options` (
   `start` time NOT NULL,
   `end` time NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `tabla_id` (`survey_id`),
-  CONSTRAINT `fk_survey` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `tabla_id` (`survey_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla bdtsw.options: ~0 rows (aproximadamente)
@@ -43,8 +42,7 @@ CREATE TABLE IF NOT EXISTS `surveys` (
   `description` varchar(600) DEFAULT NULL,
   `creator` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_creator` (`creator`),
-  CONSTRAINT `fk_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`id`)
+  KEY `fk_creator` (`creator`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla bdtsw.surveys: ~0 rows (aproximadamente)
@@ -78,10 +76,13 @@ CREATE TABLE IF NOT EXISTS `vote` (
   `option_id` int(10) unsigned NOT NULL,
   `vote` enum('Y','N','NS') DEFAULT 'NS',
   PRIMARY KEY (`user_id`,`option_id`),
-  KEY `fk_option_id` (`option_id`),
-  CONSTRAINT `fk_option_id` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_option_id` (`option_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `options` ADD CONSTRAINT `fk_survey` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `vote` ADD CONSTRAINT `fk_option_id` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `vote` ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `surveys` ADD CONSTRAINT `fk_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`id`);
 
 -- Volcando datos para la tabla bdtsw.vote: ~0 rows (aproximadamente)
 DELETE FROM `vote`;
