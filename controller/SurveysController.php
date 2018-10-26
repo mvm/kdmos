@@ -57,7 +57,7 @@ class SurveysController extends BaseController {
                 $survey->checkIsValidForCreate();
 
                 $this->surveyMapper->save($survey);
-                //$this->view->redirect("users", "login");
+                $this->view->redirect("users", "login");
             } catch(ValidationException $ex) {
                 $errors = $ex->getErrors();
                 $this->view->setVariable("errors", $errors);

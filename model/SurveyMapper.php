@@ -19,7 +19,7 @@ users.id, users.name, users.surname, users.email, users.pass
 FROM surveys JOIN users ON surveys.creator = users.id
 WHERE surveys.creator_id = ?");
         $stmt->execute(array($creatorid));
-        $surveys = $stmt->fetch(PDO::FETCH_ASSOC);
+        $surveys = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $result = array();
 
         foreach($surveys as $s) {
@@ -52,7 +52,6 @@ WHERE surveys.creator_id = ?");
 
         foreach($survey->getOptions() as $option) {
             $stmt = $this->db->prepare("INSERT INTO options (id, survey_id, day, start, end) values (?,?,?,?,?)");
-            print_r($option);
             $stmt->execute(array($option->getId(), $option->getSurveyId(), $option->getDay()->format("Y-m-d"), $option->getStart()->format("H:i"), $option->getEnd()->format("H:i")));
         }
         
@@ -60,7 +59,7 @@ WHERE surveys.creator_id = ?");
     }
 
     public function update(Survey $survey) {
-        $stmt = $this->db->prepare("UPDATE surveys SET title=?, description=?, creator_id = ? WHERE id = ?");
+        $stmt = $this->db->prepare("UPDATE surveys SET title=?, description=?, creator = ? WHERE id = ?");
         $stmt->execute(array($survey->getTitle(), $survey->getDescription(), $survey->getCreator()->getId(), $survey->getId()));
     }
 
