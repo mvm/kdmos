@@ -17,7 +17,6 @@ class SurveysController extends BaseController {
     }
 
     public function list_created() {
-
     }
 
     public function list_participated() {
@@ -35,7 +34,8 @@ class SurveysController extends BaseController {
             $survey_id = $survey->newId();
             $survey->setTitle($_POST["title"]);
             $survey->setDescription($_POST["description"]);
-            $survey->setCreator(new User(1));
+            $user = new User($this->currentUserId);
+            $survey->setCreator($user);
 
             $options = array();
             $option_nums = split(" ", $_POST["num_dates"]);
@@ -72,7 +72,22 @@ class SurveysController extends BaseController {
     }
 
     public function delete() {
-        
+        if(!isset($this->currentUser)) {
+            throw new Exception("Not in session. Deleting posts requires login");
+        }
+
+        if(!isset($_GET["id"])) {
+            throw new Exception("Survey id needed");
+        }
+
+        $survey_id = $_REQUEST["id"];
+        $survey = $this->surveyMapper->findById($survey_id);
+        if($survey == NULL) {
+            throw new Exception("Survey with id " . $survey_id . " not found");
+        }
+
+        $this->surveyMapper->delete($survey);
+        $this->view->redirect("surveys", "list_created");
     }
 }
 

@@ -33,7 +33,7 @@ WHERE surveys.creator_id = ?");
     }
 
     public function findById($survey_id) {
-        $stmt = $this->db->prepare("SELECT surveys.id, surveys.title, surveys.description, users.id, users.name, users.surname, users.email, users.pass FROM surveys JOIN users ON surveys.creator = users.id WHERE surveys.id = ?");
+        $stmt = $this->db->prepare("SELECT surveys.id as survey_id, surveys.title, surveys.description, users.id, users.name, users.surname, users.email, users.pass FROM surveys JOIN users ON surveys.creator = users.id WHERE surveys.id = ?");
         $stmt->execute(array($survey_id));
         $survey_row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -41,8 +41,9 @@ WHERE surveys.creator_id = ?");
             return NULL;
         }
 
-        $creator = new User($survey_row["users.id"], $survey_row["users.name"], $survey_row["users.surname"], $survey_row["users.email"], $survey_row["users.pass"]);
-        $survey = new Survey($survey_row["surveys.id"], $survey_row["surveys.title"], $survey_row["surveys.description"], $creator);
+        $creator = new User($survey_row["id"], $survey_row["name"], $survey_row["surname"],$survey_row["email"],$survey_row["pass"]);
+        $survey = new Survey($survey_row["survey_id"], $survey_row["title"], $survey_row["description"], $creator);
+        
         return $survey;
     }
 
@@ -65,7 +66,7 @@ WHERE surveys.creator_id = ?");
 
     public function delete(Survey $survey) {
         $stmt = $this->db->prepare("DELETE FROM surveys WHERE id = ?");
-        $stmt->execute($survey->getId());
+        $stmt->execute(array($survey->getId()));
     }
 }
 
