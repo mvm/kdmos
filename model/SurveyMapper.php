@@ -16,7 +16,7 @@ class SurveyMapper {
         $stmt = $this->db->prepare("SELECT 
 surveys.id, surveys.title, surveys.description,
 users.id, users.name, users.surname, users.email, users.pass
-FROM surveys JOIN users ON surveys.creator_id = users.id
+FROM surveys JOIN users ON surveys.creator = users.id
 WHERE surveys.creator_id = ?");
         $stmt->execute(array($creatorid));
         $surveys = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ WHERE surveys.creator_id = ?");
     }
 
     public function findById($survey_id) {
-        $stmt = $this->db->prepare("SELECT surveys.id, surveys.title, surveys.description, users.id, users.name, users.surname, users.email, users.pass FROM surveys JOIN users ON surveys.creator_id = users.id WHERE surveys.id = ?");
+        $stmt = $this->db->prepare("SELECT surveys.id, surveys.title, surveys.description, users.id, users.name, users.surname, users.email, users.pass FROM surveys JOIN users ON surveys.creator = users.id WHERE surveys.id = ?");
         $stmt->execute(array($survey_id));
         $survey_row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -47,8 +47,8 @@ WHERE surveys.creator_id = ?");
     }
 
     public function save(Survey $survey) {
-        $stmt = $this->db->prepare("INSERT INTO surveys(title, description, creator_id) VALUES (?, ?, ?)");
-        $stmt->execute(array($survey->getTitle(), $survey->getDescription(), $survey->getCreator()->getId()));
+        $stmt = $this->db->prepare("INSERT INTO surveys(id, title, description, creator) VALUES (?, ?, ?, ?)");
+        $stmt->execute(array($survey->getId(), $survey->getTitle(), $survey->getDescription(), $survey->getCreator()->getId()));
         return $this->db->lastInsertId();
     }
 

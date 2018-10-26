@@ -25,9 +25,9 @@ class SurveysController extends BaseController {
     }
 
     public function add() {
-        if(!isset($this->currentUser)) {
-            throw new Exception("Not in session. Adding posts requires login");
-        }
+        //if(!isset($this->currentUser)) {
+        //    throw new Exception("Not in session. Adding posts requires login");
+        //}
 
         $survey = new Survey();
         
@@ -35,7 +35,7 @@ class SurveysController extends BaseController {
             $survey_id = $survey->newId();
             $survey->setTitle($_POST["title"]);
             $survey->setDescription($_POST["description"]);
-            $survey->setCreator($this->currentUser);
+            $survey->setCreator(new User(1));
 
             $options = array();
             $option_nums = split(" ", $_POST["num_dates"]);
@@ -44,9 +44,9 @@ class SurveysController extends BaseController {
                     continue;
                 }
                 $option = new Option();
-                $option->setDay($_POST["date" + $opt_i + "_day"]);
-                $option->setStart($_POST["date" + $opt_i + "_start"]);
-                $option->setEnd($_POST["date" + $opt_i + "_end"]);
+                $option->setDay($_POST["date" . $opt_i . "_day"]);
+                $option->setStart($_POST["date" . $opt_i . "_start"]);
+                $option->setEnd($_POST["date" . $opt_i . "_end"]);
                 array_push($options, $option);
             }
 
@@ -54,7 +54,8 @@ class SurveysController extends BaseController {
 
             try {
                 $survey->checkIsValidForCreate();
-                //$this->surveyMapper->save($survey);
+
+                $this->surveyMapper->save($survey);
                 $this->view->redirect("users", "login");
             } catch(ValidationException $ex) {
                 $errors = $ex->getErrors();
