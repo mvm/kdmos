@@ -60,14 +60,16 @@ class SurveysController extends BaseController {
                 $survey->checkIsValidForCreate();
 
                 $this->surveyMapper->save($survey);
-                $this->view->redirect("users", "login");
+                $this->view->setVariable("survey", $survey);
+                $this->view->render("surveys", "added");
             } catch(ValidationException $ex) {
                 $errors = $ex->getErrors();
                 $this->view->setVariable("errors", $errors);
             }
+        } else {
+            $this->view->setVariable("survey", $survey);
+            $this->view->render("surveys", "add");
         }
-        $this->view->setVariable("survey", $survey);
-        $this->view->render("surveys", "add");
     }
 
     public function edit() {
@@ -83,6 +85,11 @@ class SurveysController extends BaseController {
         if($survey == NULL) {
             throw new Exception("Survey not found.");
         }
+        
+        if($survey->getCreator()->getId() != $this->currentUserId) {
+            throw new Exception("Cannot edit a survey you don't own");
+        }
+        
         $options = $this->optionMapper->findBySurvey($survey);
         $survey->setOptions($options);
 
