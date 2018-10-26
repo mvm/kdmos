@@ -25,6 +25,43 @@ class SurveysController extends BaseController {
     }
 
     public function add() {
+        if(!isset($this->currentUser)) {
+            throw new Exception("Not in session. Adding posts requires login");
+        }
+
+        $survey = new Survey();
+        
+        if(isset($_POST["submit"])) {
+            $survey_id = $survey->newId();
+            $survey->setTitle($_POST["title"]);
+            $survey->setDescription($_POST["description"]);
+            $survey->setCreator($this->currentUser);
+
+            $options = array();
+            $option_nums = split(" ", $_POST["num_dates"]);
+            foreach($option_nums as $opt_i) {
+                if($opt_i == "") {
+                    continue;
+                }
+                $option = new Option();
+                $option->setDay($_POST["date" + $opt_i + "_day"]);
+                $option->setStart($_POST["date" + $opt_i + "_start"]);
+                $option->setEnd($_POST["date" + $opt_i + "_end"]);
+                array_push($options, $option);
+            }
+
+            $survey->setOptions($options);
+
+            try {
+                $survey->checkIsValidForCreate();
+                //$this->surveyMapper->save($survey);
+                $this->view->redirect("users", "login");
+            } catch(ValidationException $ex) {
+                $errors = $ex->getErrors();
+                $this->view->setVariable("errors", $errors);
+            }
+        }
+        $this->view->setVariable("survey", $survey);
         $this->view->render("surveys", "add");
     }
 

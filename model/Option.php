@@ -15,6 +15,11 @@ class Option {
         return $this->id;
     }
 
+    public function newId() {
+        $this->id = rand();
+        return $this->id;
+    }
+    
     public function getSurveyId() {
         return $this->survey_id;
     }
