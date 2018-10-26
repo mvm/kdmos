@@ -6,9 +6,9 @@ class Option {
     public function __construct($id = NULL, $survey_id = NULL, $day = NULL, $start = NULL, $end = NULL) {
         $this->id = $id;
         $this->survey_id = $survey_id;
-        $this->day = $day;
-        $this->start = $start;
-        $this->end = $end;
+        $this->day = date_create_from_format("Y-m-d", $day);
+        $this->start = date_create_from_format("H:i:s",$start);
+        $this->end = date_create_from_format("H:i:s", $end);
     }
 
     public function getId() {
@@ -33,7 +33,7 @@ class Option {
     }
 
     public function setDay($day) {
-        $this->day = date_create_from_format("d-m-Y", $day);
+        $this->day = date_create_from_format("Y-m-d", $day);
     }
 
     public function getStart() {
@@ -41,7 +41,7 @@ class Option {
     }
 
     public function setStart($start) {
-        $this->start = date_create_from_format("H:i",$start);
+        $this->start = date_create_from_format("H:i:s",$start);
     }
 
     public function getEnd() {
@@ -49,7 +49,7 @@ class Option {
     }
 
     public function setEnd($end) {
-        $this->end = date_create_from_format("H:i", $end);
+        $this->end = date_create_from_format("H:i:s", $end);
     }
 
     public function checkStartEnd() {

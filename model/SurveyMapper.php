@@ -14,7 +14,7 @@ class SurveyMapper {
 
     public function findByCreator($creatorid) {
         $stmt = $this->db->prepare("SELECT 
-surveys.id, surveys.title, surveys.description,
+surveys.id as survey_id, surveys.title, surveys.description,
 users.id, users.name, users.surname, users.email, users.pass
 FROM surveys JOIN users ON surveys.creator = users.id
 WHERE surveys.creator_id = ?");
@@ -23,9 +23,9 @@ WHERE surveys.creator_id = ?");
         $result = array();
 
         foreach($surveys as $s) {
-            $survey_creator = new User($s["users.id"], $s["users.name"], $s["users.surname"], $s["users.email"], $s["users.pass"]);
-            $current_survey = new Survey($s["surveys.id"], $s["surveys.title"],
-            $s["surveys.description"], $survey_creator);
+            $survey_creator = new User($s["id"], $s["name"], $s["surname"], $s["email"], $s["pass"]);
+            $current_survey = new Survey($s["survey_id"], $s["title"],
+            $s["description"], $survey_creator);
             array_push($result, $current_survey);
         }
         
@@ -60,8 +60,8 @@ WHERE surveys.creator_id = ?");
     }
 
     public function update(Survey $survey) {
-        $stmt = $this->db->prepare("UPDATE surveys SET title=?, description=?, creator = ? WHERE id = ?");
-        $stmt->execute(array($survey->getTitle(), $survey->getDescription(), $survey->getCreator()->getId(), $survey->getId()));
+        $stmt = $this->db->prepare("UPDATE surveys SET title=?, description=? WHERE id = ?");
+        $stmt->execute(array($survey->getTitle(), $survey->getDescription(), $survey->getId()));
     }
 
     public function delete(Survey $survey) {

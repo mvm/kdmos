@@ -88,16 +88,16 @@ function add_date() {
 				 `);
     
     $("#" + date_id + "_day").datetimepicker({
-	format: 'DD-MM-YYYY'
+	format: 'YYYY-MM-DD'
     });
     $("#" + date_id + "_start").datetimepicker({
-	format: 'HH:mm'
+	format: 'HH:mm:00'
     });
     $("#" + date_id + "_start").on("change.datetimepicker", function(e) {
 	$("#" + date_id + "_end").datetimepicker("minDate", e.date);
     });
     $("#" + date_id + "_end").datetimepicker({
-	format: 'HH:mm'
+	format: 'HH:mm:00'
     });
     $("#" + date_id + "_del").click(function() {
 	$("#" + date_id + "_group").remove();
