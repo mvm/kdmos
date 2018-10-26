@@ -29,9 +29,12 @@ CREATE TABLE IF NOT EXISTS `options` (
   KEY `tabla_id` (`survey_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtsw.options: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bdtsw.options: ~2 rows (aproximadamente)
 DELETE FROM `options`;
 /*!40000 ALTER TABLE `options` DISABLE KEYS */;
+INSERT INTO `options` (`id`, `survey_id`, `day`, `start`, `end`) VALUES
+	(1, 'd7ujehsuwnd98', '2018-10-31', '10:00:00', '12:00:00'),
+	(2, 'd7ujehsuwnd98', '2018-10-27', '15:00:00', '18:00:00');
 /*!40000 ALTER TABLE `options` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtsw.surveys
@@ -45,9 +48,11 @@ CREATE TABLE IF NOT EXISTS `surveys` (
   KEY `fk_creator` (`creator`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtsw.surveys: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bdtsw.surveys: ~1 rows (aproximadamente)
 DELETE FROM `surveys`;
 /*!40000 ALTER TABLE `surveys` DISABLE KEYS */;
+INSERT INTO `surveys` (`id`, `title`, `description`, `creator`) VALUES
+	('d7ujehsuwnd98', 'Reunion Marronera', NULL, 1);
 /*!40000 ALTER TABLE `surveys` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bdtsw.users
@@ -61,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla bdtsw.users: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bdtsw.users: ~0 rows (aproximadamente)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `pass`) VALUES
@@ -69,9 +74,9 @@ INSERT INTO `users` (`id`, `name`, `surname`, `email`, `pass`) VALUES
 	(2, 'Manolo', 'Eldelbombo', 'manolo@gmail.com', 'manolete');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
--- Volcando estructura para tabla bdtsw.vote
-DROP TABLE IF EXISTS `vote`;
-CREATE TABLE IF NOT EXISTS `vote` (
+-- Volcando estructura para tabla bdtsw.votes
+DROP TABLE IF EXISTS `votes`;
+CREATE TABLE IF NOT EXISTS `votes` (
   `user_id` int(10) unsigned NOT NULL,
   `option_id` int(10) unsigned NOT NULL,
   `vote` enum('Y','N','NS') DEFAULT 'NS',
@@ -84,13 +89,14 @@ ALTER TABLE `vote` ADD CONSTRAINT `fk_option_id` FOREIGN KEY (`option_id`) REFER
 ALTER TABLE `vote` ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `surveys` ADD CONSTRAINT `fk_creator` FOREIGN KEY (`creator`) REFERENCES `users` (`id`);
 
--- Volcando datos para la tabla bdtsw.vote: ~0 rows (aproximadamente)
-DELETE FROM `vote`;
-/*!40000 ALTER TABLE `vote` DISABLE KEYS */;
-/*!40000 ALTER TABLE `vote` ENABLE KEYS */;
-
-
-GRANT ALL PRIVILEGES ON bdtsw.* to kdamosuser@localhost IDENTIFIED BY "kdamospass";
+DELETE FROM `votes`;
+/*!40000 ALTER TABLE `votes` DISABLE KEYS */;
+INSERT INTO `votes` (`user_id`, `option_id`, `vote`) VALUES
+	(1, 1, 'N'),
+	(1, 2, 'Y'),
+	(2, 1, 'NS'),
+	(2, 2, 'Y');
+/*!40000 ALTER TABLE `votes` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

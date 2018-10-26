@@ -19,6 +19,10 @@ class Option {
         $this->id = rand();
         return $this->id;
     }
+
+    public function setSurveyId($survey_id) {
+        $this->survey_id = $survey_id;
+    }
     
     public function getSurveyId() {
         return $this->survey_id;
@@ -29,7 +33,7 @@ class Option {
     }
 
     public function setDay($day) {
-        $this->day = $day;
+        $this->day = date_create_from_format("D-M-Y", $day);
     }
 
     public function getStart() {
@@ -37,7 +41,7 @@ class Option {
     }
 
     public function setStart($start) {
-        $this->start = $start;
+        $this->start = date_create_from_format("H:i",$start);
     }
 
     public function getEnd() {
@@ -45,7 +49,7 @@ class Option {
     }
 
     public function setEnd($end) {
-        $this->end = $end;
+        $this->end = date_create_from_format("H:i", $end);
     }
 
     public function checkStartEnd() {

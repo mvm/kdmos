@@ -2,10 +2,43 @@
 //file: /view/messages/messages_es.php
 $i18n_messages =
 array(
+	"Login"=>"Conectate",
+	"Username"=> "Nombre de usuario",
+	"Password"=> "Contraseña",
+	"Not user?"=> "¿No tienes cuenta?",
+	"Register here!"=>"¡Registrate aquí!",
+	
+	"Register"=> "Registrarse",
+	"Name"=>"Nombre",
+	"Surname"=>"Apellidos",
+	"Email"=>"Correo",
+	"Sign up"=>"Conectate",
+	
+	"Title" => "Título",
+	"Description" => "Descripción",
+	"In which dates will you meet?"=>"¿Cuando será la reunión?",
+	"Day..." => "Día...",
+	"Begin..."=>"Desde...",
+	"End..."=>"Hasta...",
+	"Ok, submit"=>"Crear reunión",
+	
+	"Logout "=>"Desconectarse",
+	"New? Sign up"=>"¿No tienes cuenta?, ¡Resgistrate!",
+	"Spanish" => "Español",
+	"English" => "Inglés",
+	
+	"User is not valid"=> "Usuario no válido",
+	"User "=>"Usuario ",
+	" successfully added. Please Login now"=> " añadido correctamente. Por favor, conectate ahora",
+	"User with this email already exists"=> "Ya existe un usuario con este correo",
+	
+
+
+
 	"Post" => "Artículo",
 	"by %s" => "por %s",
 	"Posts" => "Artículos",
-	"Title" => "Título",
+
 	"Contents" => "Contenido",
 	"Author" => "Autor",
 	"Actions" => "Acciones",
@@ -15,12 +48,8 @@ array(
 	"Post \"%s\" successfully added." => "Artículo \"%s\" añadido.",
 	"Post \"%s\" successfully updated." => "Artículo \"%s\" modificado.",
 	"Post \"%s\" successfully deleted." => "Artículo \"%s\" eliminado.",
-	"Login" => "Entrar",
-	"Username" => "Nombre de usuario",
-	"Password" => "Contraseña",
-	"Not user?" => "Nuevo aquí?",
-	"Register here!" => "¡Regístrate aquí!",
-	"Register" => "Registro",
+
+
 	"Edit" => "Editar",
 	"Delete" => "Eliminar",
 	"Create post" => "Crear artículo",
@@ -29,8 +58,7 @@ array(
 	"%s commented..."=>"%s ha comentado...",
 	"Comment" => "Comentario",
 	"do comment" => "comentar",
-	"Spanish" => "Español",
-	"English" => "Inglés",
+
 	"Welcome to the Blog App!" => "¡Bienvenido a la App Blog!",
 	"are you sure?" => "¿Estás seguro?",
 	"content is mandatory" => "El contenido es obligatorio",

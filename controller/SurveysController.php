@@ -44,6 +44,7 @@ class SurveysController extends BaseController {
                     continue;
                 }
                 $option = new Option();
+                $option->setSurveyId($survey->getId());
                 $option->setDay($_POST["date" . $opt_i . "_day"]);
                 $option->setStart($_POST["date" . $opt_i . "_start"]);
                 $option->setEnd($_POST["date" . $opt_i . "_end"]);
@@ -56,7 +57,7 @@ class SurveysController extends BaseController {
                 $survey->checkIsValidForCreate();
 
                 $this->surveyMapper->save($survey);
-                $this->view->redirect("users", "login");
+                //$this->view->redirect("users", "login");
             } catch(ValidationException $ex) {
                 $errors = $ex->getErrors();
                 $this->view->setVariable("errors", $errors);

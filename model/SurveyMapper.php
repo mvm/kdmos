@@ -49,6 +49,12 @@ WHERE surveys.creator_id = ?");
     public function save(Survey $survey) {
         $stmt = $this->db->prepare("INSERT INTO surveys(id, title, description, creator) VALUES (?, ?, ?, ?)");
         $stmt->execute(array($survey->getId(), $survey->getTitle(), $survey->getDescription(), $survey->getCreator()->getId()));
+
+        foreach($survey->getOptions() as $option) {
+            $stmt = $this->db->prepare("INSERT INTO options (id, survey_id, day, start, end) values (?,?,?,?,?)");
+            $stmt->execute(array($option->getId(), $option->getSurveyId(), $option->getDay(), $option->getStart(), $option->getEnd()));
+        }
+        
         return $this->db->lastInsertId();
     }
 

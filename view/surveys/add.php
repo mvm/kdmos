@@ -88,7 +88,7 @@ function add_date() {
 				 `);
     
     $("#" + date_id + "_day").datetimepicker({
-	format: 'DD/MM/YYYY'
+	format: 'DD-MM-YYYY'
     });
     $("#" + date_id + "_start").datetimepicker({
 	format: 'HH:mm'
