@@ -11,8 +11,8 @@ $errors = $view->getVariable("errors");
 <?= isset($errors["general"])?$errors["general"]:"" ?>
 
 <form action="index.php?controller=users&amp;action=login" method="POST">
-	<?= i18n("Username")?>: <input type="text" name="username">
-	<?= i18n("Password")?>: <input type="password" name="passwd">
+	<?= i18n("Username")?>: <input type="text" name="email">
+	<?= i18n("Password")?>: <input type="password" name="pass">
 	<input type="submit" value="<?= i18n("Login") ?>">
 </form>
 

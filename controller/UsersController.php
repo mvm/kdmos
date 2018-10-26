@@ -24,12 +24,12 @@ class UsersController extends BaseController {
 	* Action to login
 	*/
 	public function login() {
-		if (isset($_POST["email"])){ 
+		if (isset($_POST["email"])){
 			if ($this->userMapper->isValidUser($_POST["email"], $_POST["pass"])) {
 				$user = $this->userMapper->findByEmail($_POST["email"]);
 				$_SESSION["currentuser"] = $user->getName();
 				$_SESSION["currentuserid"] = $user->getId();
-				$this->view->redirect("users", "login");
+				//$this->view->redirect("users", "login");
 			}else{
 				$errors = array();
 				$errors["general"] = i18n("User is not valid");

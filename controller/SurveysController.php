@@ -25,9 +25,9 @@ class SurveysController extends BaseController {
     }
 
     public function add() {
-        //if(!isset($this->currentUser)) {
-        //    throw new Exception("Not in session. Adding posts requires login");
-        //}
+        if(!isset($this->currentUser)) {
+            throw new Exception("Not in session. Adding posts requires login");
+        }
 
         $survey = new Survey();
         
