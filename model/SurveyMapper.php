@@ -52,7 +52,8 @@ WHERE surveys.creator_id = ?");
 
         foreach($survey->getOptions() as $option) {
             $stmt = $this->db->prepare("INSERT INTO options (id, survey_id, day, start, end) values (?,?,?,?,?)");
-            $stmt->execute(array($option->getId(), $option->getSurveyId(), $option->getDay(), $option->getStart(), $option->getEnd()));
+            print_r($option);
+            $stmt->execute(array($option->getId(), $option->getSurveyId(), $option->getDay()->format("Y-m-d"), $option->getStart()->format("H:i"), $option->getEnd()->format("H:i")));
         }
         
         return $this->db->lastInsertId();

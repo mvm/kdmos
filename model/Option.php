@@ -33,7 +33,7 @@ class Option {
     }
 
     public function setDay($day) {
-        $this->day = date_create_from_format("D-M-Y", $day);
+        $this->day = date_create_from_format("d-m-Y", $day);
     }
 
     public function getStart() {
