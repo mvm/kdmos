@@ -41,6 +41,10 @@ class VotesController extends BaseController {
 		
 		$survey_id = $_REQUEST["survey_id"];
 		$votes = $this->voteMapper->findBySurveyId($survey_id);
+
+        if($votes == NULL) {
+            throw new Exception("No votes in survey");
+        }
         
 		$votesByOption = array();
 		foreach($votes as $vote){
