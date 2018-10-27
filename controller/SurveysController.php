@@ -54,7 +54,7 @@ class SurveysController extends BaseController {
             $survey->setCreator($user);
 
             $options = array();
-            $option_nums = split(" ", $_POST["num_dates"]);
+            $option_nums = explode(" ", $_POST["num_dates"]);
             foreach($option_nums as $opt_i) {
                 if($opt_i == "") {
                     continue;
@@ -113,8 +113,8 @@ class SurveysController extends BaseController {
             $survey->setDescription($_POST["description"]);
             $this->surveyMapper->update($survey);
             
-            $modified_dates = split(" ", $_POST["edit_dates"]);
-            $added_opts = split(" ", $_POST["num_dates"]);
+            $modified_dates = explode(" ", $_POST["edit_dates"]);
+            $added_opts = explode(" ", $_POST["num_dates"]);
             $del_opts = array();
             $mod_opts = array();
 
