@@ -20,13 +20,19 @@ class SurveysController extends BaseController {
     }
 
     public function list_created() {
+        if(!isset($this->currentUser)) {
+            throw new Exception("Not in session.");
+        }
+
         $surveys_created = $this->surveyMapper->findByCreator($this->currentUserId);
-        print_r($surveys_created);
+        $this->view->setVariable("results", $surveys_created);
+        $this->view->render("surveys", "showall");
     }
 
     public function list_participated() {
         $surveys_part = $this->surveyMapper->findByParticipated($this->currentUserId);
-        print_r($surveys_part);
+        $this->view->setVariable("results", $surveys_part);
+        $this->view->render("surveys", "showall");
     }
 
     public function add() {
