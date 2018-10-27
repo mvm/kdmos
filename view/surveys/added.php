@@ -11,5 +11,5 @@ $view->setVariable("title", "Survey added");
   <h1><?= i18n("Survey added successfully") ?></h1>
 
     <p><?php printf(i18n("You can now access your survey %s."),
-    "<a href='/index.php?id=" . $survey->getId() . "'>here</a>"); ?></p>
+    "<a href='/index.php?controller=votes&amp;action=add&amp;survey_id=" . $survey->getId() . "'>here</a>"); ?></p>
 </div>
