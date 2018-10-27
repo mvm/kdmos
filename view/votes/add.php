@@ -27,7 +27,7 @@ $errors = $view->getVariable("errors");
 								
 								<?php foreach($options as $option){ ?>
 									<div class="divTableRow">
-										<div class="divTableCell"><?php echo $option->getDay()." ".$option->getStart()."-".$option->getEnd();?></div>
+                                         <div class="divTableCell"><?php echo $option->getDay()->format("Y-m-d")." ".$option->getStart()->format("H:i:s")."-".$option->getEnd()->format("H:i:s");?></div>
 										<div class="divTableCell">
 											
 												<select class="custom-select" form="voto">
