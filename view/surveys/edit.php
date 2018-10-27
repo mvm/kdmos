@@ -3,11 +3,19 @@ require_once(__DIR__."/../../core/ViewManager.php");
 require_once(__DIR__."/../../core/I18n.php");
 $view = ViewManager::getInstance();
 $user = $view->getVariable("user");
+$errors = $view->getVariable("errors");
 $view->setVariable("title", "Edit survey");
 $survey = $view->getVariable("survey");
 ?>
 
 <div class="container mt-4" id="main">
+<?php
+    if($errors != NULL) {
+?>
+<p><?= join(" ", $errors) ?></p>
+<?php
+    }
+?>
   <form action="index.php?controller=surveys&amp;action=edit&id=<?= $survey->getId() ?>" method="POST">
     <div class="row">
       <div class="col">

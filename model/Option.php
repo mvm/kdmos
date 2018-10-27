@@ -52,8 +52,14 @@ class Option {
         $this->end = date_create_from_format("H:i:s", $end);
     }
 
-    public function checkStartEnd() {
-        // TODO
+    public function checkValid() {
+        $errors = array();
+        if($this->start > $this->end) {
+            $errors["startEnd"] = "Start cannot be after end";
+        }
+        if(sizeof($errors) > 0) {
+            throw new ValidationException($errors, "option not valid");
+        }
     }
 }
 ?>

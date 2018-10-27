@@ -108,6 +108,7 @@ class SurveysController extends BaseController {
         $survey->setOptions($options);
 
         if(isset($_POST["submit"])) {
+            $errors = array();
             $survey->setTitle($_POST["title"]);
             $survey->setDescription($_POST["description"]);
             $this->surveyMapper->update($survey);
@@ -139,9 +140,21 @@ class SurveysController extends BaseController {
             }
 
             foreach($mod_opts as $o) {
-                $this->optionMapper->update($o);
+                try {
+                    $o->checkValid();
+                    $this->optionMapper->update($o);
+                } catch(ValidationException $e) {
+                    $errors = $e->getErrors();
+                    $this->view->setVariable("errors", $errors);
+                }
             }
-            $this->view->redirect("surveys", "list_created");
+            
+            if(sizeof($errors) > 0) {
+                $this->view->setVariable("survey", $survey);
+                $this->view->render("surveys", "edit");
+            } else {
+                $this->view->redirect("surveys", "list_created");
+            }
         } else {        
             $this->view->setVariable("survey", $survey);
             $this->view->render("surveys", "edit");

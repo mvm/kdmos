@@ -73,6 +73,10 @@ class Survey {
             $errors["options"] = "must have options";
         }
 
+        foreach($this->options as $option) {
+            $option->checkValid();
+        }
+
         if(sizeof($errors) > 0) {
             throw new ValidationException($errors, "survey not valid");
         }
