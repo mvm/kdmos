@@ -23,15 +23,7 @@ class VoteMapper{
 		
         return $options_by_survey;       
 	}	
-	
-/**	public function countByOptionId($option_id){
-		$stmt = $this->db->prepare("SELECT count(user_id) FROM votes WHERE option_id = ? AND vote = 'Y'");
-        $stmt->execute(array($option_id));
-        $counts_row = $stmt->fetchColumn();
-        return $counts_row;       
-	}
-*/	
-	
+		
 	public function findBySurveyId($survey_id){
 		$stmt = $this->db->prepare("SELECT votes.user_id, users.name, users.surname, votes.option_id, 
 		options.day, options.start, options.end, votes.vote FROM votes JOIN options ON options.id=votes.option_id JOIN users ON users.id=votes.user_id 
@@ -58,4 +50,14 @@ class VoteMapper{
 	public function update(Vote $vote) {
         $stmt = $this->db->prepare("UPDATE votes SET vote=? where user_id =? and option_id=? ");
         $stmt->execute(array($vote->getVote(), $vote->getUserId() , $vote->getOptionId()));
-	} }
+	}
+
+	public function checkIfExists($user_id, $option_id){
+		$stmt = $this->db->prepare("SELECT count(user_id) FROM votes WHERE user_id = ? AND option_id = ?");
+        $stmt->execute(array($user_id, $option_id));
+        if ($stmt->fetchColumn() > 0) {
+            return true;
+        }     
+	}
+	
+}
