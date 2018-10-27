@@ -12,12 +12,28 @@ class SurveyMapper {
         $this->db = PDOConnection::getInstance();
     }
 
+    public function findByParticipated($userid) {
+        $stmt = $this->db->prepare("select distinct surveys.* from options join votes on votes.option_id = options.id join surveys on options.survey_id = surveys.id where votes.user_id = ?");
+        $stmt->execute(array($userid));
+        $surveys = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = array();
+
+        foreach($surveys as $s) {
+            $survey_creator = new User($userid);
+            $current_survey = new Survey($s["id"], $s["title"],
+            $s["description"], $survey_creator);
+            array_push($result, $current_survey);
+        }
+        
+        return $result;
+    }
+
     public function findByCreator($creatorid) {
         $stmt = $this->db->prepare("SELECT 
 surveys.id as survey_id, surveys.title, surveys.description,
 users.id, users.name, users.surname, users.email, users.pass
 FROM surveys JOIN users ON surveys.creator = users.id
-WHERE surveys.creator_id = ?");
+WHERE surveys.creator = ?");
         $stmt->execute(array($creatorid));
         $surveys = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $result = array();

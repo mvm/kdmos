@@ -20,10 +20,13 @@ class SurveysController extends BaseController {
     }
 
     public function list_created() {
+        $surveys_created = $this->surveyMapper->findByCreator($this->currentUserId);
+        print_r($surveys_created);
     }
 
     public function list_participated() {
-
+        $surveys_part = $this->surveyMapper->findByParticipated($this->currentUserId);
+        print_r($surveys_part);
     }
 
     public function add() {
