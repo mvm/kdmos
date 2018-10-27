@@ -25,12 +25,14 @@ class SurveysController extends BaseController {
         }
 
         $surveys_created = $this->surveyMapper->findByCreator($this->currentUserId);
+        $this->view->setVariable("edit", true);
         $this->view->setVariable("results", $surveys_created);
         $this->view->render("surveys", "showall");
     }
 
     public function list_participated() {
         $surveys_part = $this->surveyMapper->findByParticipated($this->currentUserId);
+        $this->view->setVariable("edit", false);
         $this->view->setVariable("results", $surveys_part);
         $this->view->render("surveys", "showall");
     }
