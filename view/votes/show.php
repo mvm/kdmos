@@ -35,7 +35,7 @@ $errors = $view->getVariable("errors");
 										<div class="divTableCell">Total</div>
 								</div>
 								<div class="divTableRow">
-									<div class="divTableCell"><?php echo $votes[0]->getOptionId()->getDay()." ".$votes[0]->getOptionId()->getStart()."-".$votes[0]->getOptionId()->getEnd();?></div>
+    <div class="divTableCell"><?php echo $votes[0]->getOptionId()->getDay()->format("Y-m-d")." ".$votes[0]->getOptionId()->getStart()->format("H:i:s")."-".$votes[0]->getOptionId()->getEnd()->format("H:i:s");?></div>
 									<?php $total = 0;
 										foreach($votes as $vote){
 											if(($vote->getOptionId()->getId())==$opcion_inicial){?>
