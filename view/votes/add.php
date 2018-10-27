@@ -22,27 +22,36 @@ $errors = $view->getVariable("errors");
 							</div>
 							
 							<div class="container" align="center">	
-							<form action="index.php?controller=votes&amp;action=add" id="voto" method="POST">
-							<p><div class="divTable Tabla">
-								
+							<form action="index.php?controller=votes&amp;action=add&amp;survey_id=<?php echo $survey->getId();?>" id="votar" method="POST">
+							<p><div class="divTable Tabla">								
 								<?php foreach($options as $option){ ?>
 									<div class="divTableRow">
                                          <div class="divTableCell"><?php echo $option->getDay()->format("Y-m-d")." ".$option->getStart()->format("H:i:s")."-".$option->getEnd()->format("H:i:s");?></div>
 										<div class="divTableCell">
-											
-												<select class="custom-select" form="voto">
+												<select class="custom-select" name="all_votes[]">
 													<option selected value="NS">Elige</option>
 													<option value="Y">Sí</option>
 													<option value="N">No</option>
 													<option value="NS">Podría ser</option>
 												</select>
-											
 										</div>
 								</div><?php } ?>
 							</div></p>
-								<button type="submit" class="btn btn-light"><?=i18n("Vote")?></button>
+							</form>
+								<button type="submit" class="btn btn-light" name="submit" form="votar"><?=i18n("Vote")?></button>
+							<!--	<script>
+									$(function () {
+										var $select = $('[name="acabados[]"]');
+										$select.on('change', function () {
+										var output = 0;
+										for (var i = 0, len = $select.length; i < len; i++) {
+											output += parseInt($select.eq(i).val());
+										}
+										$('#output').text('Added Together = ' + output);
+										}).eq(0).trigger('change');
+									});
+								</script> -->
 								<button onclick="goBack()"class="btn btn-light"><?=i18n("Go Back")?></button>
-								</form>
 								<script>
 									function goBack() {
 										window.history.back();
