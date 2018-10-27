@@ -39,9 +39,9 @@ $currentuser = $view->getVariable("currentusername");
 			<ul class="navbar-nav justify-content-center">
 				<li class="nav-item">
 					<div class="btn-group" role="group">
-						<button class="btn btn-light"><i class="fas fa-plus"></i></button>
-						<button class="btn btn-light"><i class="fas fa-search"></i></button>
-						<button class="btn btn-light"><i class="fas fa-search-plus"></i></button>
+						<a href="?controller=surveys&action=add" class="btn btn-light"><i class="blackicon fas fa-plus"></i></a>
+						<a href="?controller=surveys&action=list_participated" class="btn btn-light"><i class="blackicon fas fa-search"></i></a>
+						<a href="?controller=surveys&action=list_created" class="btn btn-light"><i class="blackicon fas fa-search-plus"></i></a>
 					</div>
 				</li>
 			</ul>

@@ -112,3 +112,10 @@ footer{
 .divTableRow { display: table-row; }
 .divTableCell, .divTableHead { display: table-cell;}
 
+.blackicon {
+    color: black;
+}
+
+.whiteicon {
+    color: white;
+}
