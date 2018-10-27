@@ -41,15 +41,16 @@ class VotesController extends BaseController {
 		
 		$survey_id = $_REQUEST["survey_id"];
 		$votes = $this->voteMapper->findBySurveyId($survey_id);
-		
-		if ($votes == NULL) {
-            throw new Exception(i18n("No such survey with id: ").$survey_id);
-        }
+        
 		$votesByOption = array();
 		foreach($votes as $vote){
 			array_push($votesByOption, $vote);
 		}
 		$survey = $this->surveyMapper->findById($survey_id);
+        if ($survey == NULL) {
+            throw new Exception(i18n("No such survey with id: ").$survey_id);
+        }
+
 		$this->view->setVariable("survey", $survey);
 		$this->view->setVariable("votes", $votesByOption);
 		$this->view->render("votes","show");

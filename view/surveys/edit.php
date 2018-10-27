@@ -12,7 +12,7 @@ $survey = $view->getVariable("survey");
 <?php
     if($errors != NULL) {
 ?>
-<p><?= join(" ", $errors) ?></p>
+<p><strong><?= i18n("Error") ?>:</strong> <?= join(" ", $errors) ?></p>
 <?php
     }
 ?>

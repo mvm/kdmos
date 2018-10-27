@@ -25,7 +25,7 @@ $view->setVariable("title", "Surveys");
 			<div class="divTableRow">
 				<div class="divTableCell"><?php echo $survey->getTitle();?></div>
 				<div class="divTableCell"><?php echo $survey->getDescription();?></div>
-				<div class="divTableCell"><a href="index.php?controller=surveys&amp;action=showone&amp;id=<?php echo $survey->getId();  ?>"><i class="whiteicon fa fa-id-card" aria-hidden="true"></i></a>
+				<div class="divTableCell"><a href="index.php?controller=votes&amp;action=show&amp;survey_id=<?php echo $survey->getId();  ?>"><i class="whiteicon fa fa-id-card" aria-hidden="true"></i></a>
 <?php
                  if($edit == true) {
 ?>
