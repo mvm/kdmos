@@ -28,7 +28,7 @@ class OptionMapper {
 
     public function save(Option $option) {
         $stmt = $this->db->prepare("INSERT INTO options(survey_id, day, start, end) VALUES (?, ?, ?, ?)");
-        $stmt->execute(array($option->getSurveyId(), $option->getDay(), $option->getStart(), $option->getEnd()));
+        $stmt->execute(array($option->getSurveyId(), $option->getDay()->format("Y-m-d"), $option->getStart()->format("H:i:s"), $option->getEnd()->format("H:i:s")));
         return $this->db->lastInsertId();
     }
 

@@ -103,9 +103,21 @@ class SurveysController extends BaseController {
         $survey->setOptions($options);
 
         if(isset($_POST["submit"])) {
+            $survey->setTitle($_POST["title"]);
+            $survey->setDescription($_POST["description"]);
+            $this->surveyMapper->update($survey);
+            
             $modified_dates = split(" ", $_POST["edit_dates"]);
+            $added_opts = split(" ", $_POST["num_dates"]);
             $del_opts = array();
             $mod_opts = array();
+
+            foreach($added_opts as $a) {
+                if($a != NULL) {
+                    $o = new Option(0, $survey->getId(), $_POST["date" . $a . "_day"], $_POST["date" . $a . "_start"], $_POST["date" . $a . "_end"]);
+                    $this->optionMapper->save($o);
+                }
+            }
             
             foreach($modified_dates as $d) {
                 if(isset($_POST["edit" . $d . "_day"])) {
