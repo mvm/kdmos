@@ -12,10 +12,10 @@ $view->setVariable("title", "Surveys");
 
 ?>
 
-	<div class="container mt-3" id="main">
+	<div class="container" id="main">
     <h1><?=i18n("Surveys")?></h1>
 		<div class="container" align="center">			
-			<p><div class="divTable Tabla " >
+			<div class="divTable Tabla " >
 			<div class="divTableRow">
 				<div class="divTableCell"><?= i18n("Title")?></div>
 				<div class="divTableCell"><?= i18n("Description")?></div>
@@ -38,6 +38,5 @@ $view->setVariable("title", "Surveys");
 <?php
                  }
 ?>
-			</p>
 		</div>
 	</div>

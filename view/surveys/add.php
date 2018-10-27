@@ -6,11 +6,11 @@ $user = $view->getVariable("user");
 $view->setVariable("title", "Add survey");
 ?>
 
-<div class="container mt-4" id="main">
+<div class="container" id="main">
   <form action="index.php?controller=surveys&amp;action=add" method="POST">
     <div class="row">
       <div class="col">
-	<div class="container mt-3 mb-3">
+	<div class="container">
 	  <div class="form-group">
 	    <input type="text" name="title" class="form-control-lg main-control" placeholder="<?= i18n("Title"); ?>"></input>
 	  </div>

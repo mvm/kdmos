@@ -21,7 +21,8 @@ class SurveysController extends BaseController {
 
     public function list_created() {
         if(!isset($this->currentUser)) {
-            throw new Exception("Not in session.");
+            $this->view->redirect("users", "login");
+            return;
         }
 
         $surveys_created = $this->surveyMapper->findByCreator($this->currentUserId);
@@ -39,7 +40,8 @@ class SurveysController extends BaseController {
 
     public function add() {
         if(!isset($this->currentUser)) {
-            throw new Exception("Not in session. Adding posts requires login");
+            $this->view->redirect("users", "login");
+            return;
         }
 
         $survey = new Survey();
@@ -85,7 +87,8 @@ class SurveysController extends BaseController {
 
     public function edit() {
         if(!isset($this->currentUser)) {
-            throw new Exception("Not in session.");
+            $this->view->redirect("users", "login");
+            return;
         }
 
         if(!isset($_REQUEST["id"])) {
