@@ -29,7 +29,7 @@ class UsersController extends BaseController {
 				$user = $this->userMapper->findByEmail($_POST["email"]);
 				$_SESSION["currentuser"] = $user->getName();
 				$_SESSION["currentuserid"] = $user->getId();
-				//$this->view->redirect("users", "login");
+				$this->view->redirect("surveys", "list_created");
 			}else{
 				$errors = array();
 				$errors["general"] = i18n("User is not valid");
