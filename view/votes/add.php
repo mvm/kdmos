@@ -39,18 +39,6 @@ $errors = $view->getVariable("errors");
 							</div></p>
 							</form>
 								<button type="submit" class="btn btn-light" name="submit" form="votar"><?=i18n("Vote")?></button>
-							<!--	<script>
-									$(function () {
-										var $select = $('[name="acabados[]"]');
-										$select.on('change', function () {
-										var output = 0;
-										for (var i = 0, len = $select.length; i < len; i++) {
-											output += parseInt($select.eq(i).val());
-										}
-										$('#output').text('Added Together = ' + output);
-										}).eq(0).trigger('change');
-									});
-								</script> -->
 								<button onclick="goBack()"class="btn btn-light"><?=i18n("Go Back")?></button>
 								<script>
 									function goBack() {
