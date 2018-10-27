@@ -60,7 +60,7 @@ $errors = $view->getVariable("errors");
 												$total = 0;?>
 											<div class="divTableRow">
 												<div class="divTableCell">
-													<?php echo $vote->getOptionId()->getDay()." ".$vote->getOptionId()->getStart()."-".$vote->getOptionId()->getEnd();?></div>
+													<?php echo $votes[0]->getOptionId()->getDay()->format("Y-m-d")." ".$votes[0]->getOptionId()->getStart()->format("H:i:s")."-".$votes[0]->getOptionId()->getEnd()->format("H:i:s");?></div>
 												<div class="divTableCell d-none d-sm-table-cell">
 													<?php $valor = $vote->getVote();
 													switch ($valor){
