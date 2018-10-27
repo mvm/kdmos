@@ -79,8 +79,13 @@ $errors = $view->getVariable("errors");
 									} ?><div class="divTableCell"><?php echo $total?></div>							
 								</div>
 							</div></p>
-							<button type="submit" class="btn btn-light"><?=i18n("Vote")?></button>
-							<button type="submit" class="btn btn-light"><?=i18n("Volver")?></button>
+							<button onclick="location.href='index.php?controller=votes&action=add&survey_id=<?php echo $survey->getId();  ?>'" type="button" class="btn btn-light"><?=i18n("Vote")?></button>
+							<button onclick="goBack()"class="btn btn-light"><?=i18n("Go Back")?></button>
+							<script>
+									function goBack() {
+										window.history.back();
+									}
+							</script>
 						</div>
 					</div>
 				</div>
