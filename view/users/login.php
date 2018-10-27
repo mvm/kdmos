@@ -1,22 +1,56 @@
 <?php
-//file: view/users/login.php
 
 require_once(__DIR__."/../../core/ViewManager.php");
+require_once(__DIR__."/../../core/I18n.php");
 $view = ViewManager::getInstance();
-$view->setVariable("title", "Login");
+$view->setVariable("title", "Kdamos?");
 $errors = $view->getVariable("errors");
 ?>
 
-<h1><?= i18n("Login") ?></h1>
 <?= isset($errors["general"])?$errors["general"]:"" ?>
 
-<form action="index.php?controller=users&amp;action=login" method="POST">
-	<?= i18n("Username")?>: <input type="text" name="email">
-	<?= i18n("Password")?>: <input type="password" name="pass">
-	<input type="submit" value="<?= i18n("Login") ?>">
-</form>
+ <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4 col-sm-6">
+          <div class="card h-100">
+            <a href="#"><i class="card-img-top fas fa-plus fa-10x" alt="Card image"></i></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#"><?= i18n("Create Survey:")?></a>
+              </h4>
+              <p class="card-text"><?= i18n("Create a new survey and send a link for voting to any registered friend.")?></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="card h-100">
+            <a href="#"><i class="card-img-top fas fa-search fa-10x" alt="Card image"></i></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#"><?= i18n("Search for surveys:")?></a>
+              </h4>
+              <p class="card-text"><?= i18n("Search for surveys where you have voted for consulting its status and, if you want, update your vote")?></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="card h-100">
+            <a href="#"><i class="card-img-top fas fa-search-plus fa-10x" alt="Card image"></i></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#"><?= i18n("Search for your surveys:")?></a>
+              </h4>
+              <p class="card-text"><?= i18n("Searh for the surveys that you created for consulting its status and, if you want, modify the options.")?></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
 
-<p><?= i18n("Not user?")?> <a href="index.php?controller=users&amp;action=register"><?= i18n("Register here!")?></a></p>
-<?php $view->moveToFragment("css");?>
-<link rel="stylesheet" type="text/css" src="css/style2.css">
-<?php $view->moveToDefaultFragment(); ?>
+
+
+
+
+
+
+
