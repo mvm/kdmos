@@ -13,7 +13,7 @@ $view->setVariable("title", "Surveys");
 ?>
 
 	<div class="container" id="main">
-    <h1><?=i18n("Surveys")?></h1>
+    <h1 class="header" ><?=i18n("Surveys")?></h1>
 		<div class="container" align="center">			
 			<div class="divTable Tabla " >
 			<div class="divTableRow">

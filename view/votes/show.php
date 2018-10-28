@@ -15,7 +15,7 @@ $errors = $view->getVariable("errors");
 					<div class="col">
 						<div class="container-fluid mt-3 mb-3">
 							<div align="center">						
-								<h4><?php echo $survey->getTitle(); ?></h4>
+								<h4 class="header" ><?php echo $survey->getTitle(); ?></h4>
 							</div>
 							<div align="left">
 								<p><?php echo $survey->getDescription(); ?></p>
