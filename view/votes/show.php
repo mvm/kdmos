@@ -86,6 +86,7 @@ $errors = $view->getVariable("errors");
 										window.history.back();
 									}
 							</script>
+							<div><?= i18n("Link: ");  echo $_SERVER["HTTP_HOST"];echo $_SERVER["REQUEST_URI"];?></div>
 						</div>
 					</div>
 				</div>
