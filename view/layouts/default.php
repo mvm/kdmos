@@ -62,7 +62,7 @@ $currentuser = $view->getVariable("currentusername");
 
 				<?php else: ?>
 				<div class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" role="button" id="loginDrop" data-toggle="dropdown">Conéctate
+    <a class="nav-link dropdown-toggle" role="button" id="loginDrop" data-toggle="dropdown"><?= i18n("Login") ?>
                                 <span class="caret"></span></a>
                                 <div class="dropdown-menu" role="menu" aria-labelledby="loginDrop">
                                     <form class="px-3 py-2" action="index.php?controller=users&amp;action=login" method="POST" role="menuitem" tabindex="-1">

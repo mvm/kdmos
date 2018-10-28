@@ -2,17 +2,18 @@
 //file: /view/messages/messages_es.php
 $i18n_messages =
 array(
-	"Login"=>"Conectate",
+	"Login"=>"Conéctate",
 	"Username"=> "Nombre de usuario",
 	"Password"=> "Contraseña",
 	"Not user?"=> "¿No tienes cuenta?",
 	"Register here!"=>"¡Registrate aquí!",
+    "New?" => "¿Nuevo?",
 	
 	"Register"=> "Registrarse",
 	"Name"=>"Nombre",
 	"Surname"=>"Apellidos",
 	"Email"=>"Correo",
-	"Sign up"=>"Conectate",
+	"Sign up"=>"Conéctate",
 	
 	"Title" => "Título",
 	"Description" => "Descripción",
