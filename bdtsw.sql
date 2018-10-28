@@ -98,6 +98,8 @@ INSERT INTO `votes` (`user_id`, `option_id`, `vote`) VALUES
 	(2, 2, 'Y');
 /*!40000 ALTER TABLE `votes` ENABLE KEYS */;
 
+grant all privileges on bdtsw.* to kdamosuser@localhost identified by "kdamospass";
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
