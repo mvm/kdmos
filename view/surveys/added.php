@@ -8,8 +8,8 @@ $view->setVariable("title", "Survey added");
 ?>
 
 <div class="container mt-4" id="main">
-  <h1 class="header"><?= i18n("Survey added successfully") ?></h1>
+  <h1><?= i18n("Survey added successfully") ?></h1>
 
-    <p><?php printf(i18n("You can now access your survey %s."),
-    "<a href='/index.php?controller=votes&amp;action=add&amp;survey_id=" . $survey->getId() . "'>here</a>"); ?></p>
+    <p><?= i18n("You can now access your survey ")?>
+    <a href="?controller=votes&amp;action=add&amp;survey_id=<?php echo $survey->getId();?>">here</a></p>
 </div>
