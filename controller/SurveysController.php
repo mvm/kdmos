@@ -32,6 +32,10 @@ class SurveysController extends BaseController {
     }
 
     public function list_participated() {
+        if(!isset($this->currentUser)) {
+            $this->view->redirect("users", "login");
+            return;
+        }
         $surveys_part = $this->surveyMapper->findByParticipated($this->currentUserId);
         $this->view->setVariable("edit", false);
         $this->view->setVariable("results", $surveys_part);
