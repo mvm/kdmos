@@ -35,7 +35,7 @@ $currentuser = $view->getVariable("currentusername");
 <body>
 	<nav class="navbar navbar-expand-sm" id="navbar">
 		<div class="container-fluid">
-			<a href="#"><span class="navbar-brand" id="logo">Kdamos?</span></a>
+			<a href="index.php"><span class="navbar-brand" id="logo">Kdamos?</span></a>
 			<ul class="navbar-nav justify-content-center">
 				<li class="nav-item">
 					<div class="btn-group" role="group">
@@ -52,7 +52,7 @@ $currentuser = $view->getVariable("currentusername");
 				</button>
 				<div class="collapse navbar-collapse" id="collapsibleNavbar">				
 					<li class="nav-item">
-						<i class="fas fa-user"></i><a href="#"><?= sprintf(i18n("%s"), $currentuser) ?></a>
+						<i class="fas fa-user"></i><a href="?controller=surveys&action=list_created"><?= sprintf(i18n("%s"), $currentuser) ?></a>
 					</li>
 					<li class="nav-item">
 						<i class="fas fa-sign-out-alt"></i><a href="index.php?controller=users&amp;action=logout"><?= i18n("Logout ") ?></a>
@@ -77,7 +77,7 @@ $currentuser = $view->getVariable("currentusername");
                                         <input class="btn" type="submit" value=<?= i18n("Login")?>>
                                     </form>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="index.php?controller=users&amp;action=register"><?= i18n("New? Sign up")?></a>
+                                    <a class="dropdown-item" href="index.php?controller=users&amp;action=register"><?= i18n("New?")?><br><?= i18n("Sign up")?></a>
                                 </div>
 				</div>
 				<?php endif ?>
