@@ -37,7 +37,7 @@ class BaseRest {
 			$_SERVER['PHP_AUTH_USER'],
 			$_SERVER['PHP_AUTH_PW'])) {
 
-				return new User($_SERVER['PHP_AUTH_USER']);
+				return $userMapper->findByEmail($_SERVER['PHP_AUTH_USER']);
 			} else {
 				header($_SERVER['SERVER_PROTOCOL'].' 401 Unauthorized');
 				header('WWW-Authenticate: Basic realm="Rest API of MVCBLOG"');
