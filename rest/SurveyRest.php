@@ -51,11 +51,68 @@ class SurveyRest extends BaseRest {
         header("Content-Type: application/json");
         echo(json_encode($result));
     }
+
+    public function create($data) {
+        $user = parent::authenticateUser();
+        $errors = array();
+
+        if(!$data) {
+            $errors["data"] = "Can't parse data";
+        }
+        
+        if(!isset($data->title)) {
+            $errors["title"] = "Title not set";
+        }
+        
+        if(!isset($data->description)) {
+            $errors["description"] = "Description not set";
+        }
+        
+        if(!isset($data->options)) {
+            $errors["options"] = "Options not specified";
+        }
+
+        if($errors) {
+            header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+            echo json_encode($errors);
+            return;
+        }
+
+        $survey = new Survey(0, $data->title, $data->description, $user);
+        $survey_id = $survey->newId();
+
+        $options = array();
+        foreach($data->options as $option) {
+            $o = new Option();
+            $o->setSurveyId($survey->getId());
+            $o->setDay($option->day);
+            $o->setStart($option->start);
+            $o->setEnd($option->end);
+            array_push($options, $o);
+        }
+        $survey->setOptions($options);
+
+        try {
+            $survey->checkIsValidForCreate();
+            $this->surveyMapper->save($survey);
+        } catch(ValidationException $ex) {
+            $errors = $ex->getErrors();
+        }
+
+        if($errors) {
+            header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+            echo json_encode($errors);
+            return;
+        }
+        
+        header($_SERVER["SERVER_PROTOCOL"] . " 201 Created");
+    }
 }
 
 $surveyRest = new SurveyRest();
 URIDispatcher::getInstance()
     ->map("GET", "/survey/created", array($surveyRest, "getCreated"))
-    ->map("GET", "/survey/participated", array($surveyRest, "getParticipated"));
+    ->map("GET", "/survey/participated", array($surveyRest, "getParticipated"))
+    ->map("POST", "/survey", array($surveyRest, "create"));
 
 ?>
