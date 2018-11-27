@@ -22,14 +22,14 @@ class UserRest extends BaseRest {
 	}
 
 	public function postUser($data) {
-		$user = new User($data->username, $data->password);
+		$user = new User(0, $data->name, $data->surname, $data->email, $data->pass);
 		try {
 			$user->checkIsValidForRegister();
 
 			$this->userMapper->save($user);
 
 			header($_SERVER['SERVER_PROTOCOL'].' 201 Created');
-			header("Location: ".$_SERVER['REQUEST_URI']."/".$data->username);
+			header("Location: ".$_SERVER['REQUEST_URI']."/".$data->email);
 		}catch(ValidationException $e) {
 			http_response_code(400);
 			header('Content-Type: application/json');
@@ -37,14 +37,15 @@ class UserRest extends BaseRest {
 		}
 	}
 
-	public function login($username) {
+	public function login($email) {
 		$currentLogged = parent::authenticateUser();
-		if ($currentLogged->getEmail() != $username) {
+
+		if ($currentLogged->getEmail() != $email) {
 			header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
 			echo("You are not authorized to login as anyone but you");
 		} else {
 			header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
-			echo("Hello ".$username);
+			echo("Hello ".$currentLogged->getName());
 		}
 	}
 }
