@@ -82,7 +82,6 @@ class URIDispatcher {
 			if ($this->match_request( $mapping["http_method"],
 			$mapping["url_pattern"],
 			$parameters)) {
-
 				if ($this->cors == true && $_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 					$dispatchAsCORS = true;
 					array_push($allowedMethods,strtoupper($mapping["http_method"]));
@@ -93,7 +92,6 @@ class URIDispatcher {
 					if ($mapping["parse_json_input"] &&
 					isset($_SERVER['CONTENT_TYPE']) &&
 					strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
-
 						array_push($parameters, json_decode(file_get_contents("php://input")));
 					}
 					

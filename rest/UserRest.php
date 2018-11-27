@@ -39,7 +39,7 @@ class UserRest extends BaseRest {
 
 	public function login($username) {
 		$currentLogged = parent::authenticateUser();
-		if ($currentLogged->getUsername() != $username) {
+		if ($currentLogged->getEmail() != $username) {
 			header($_SERVER['SERVER_PROTOCOL'].' 403 Forbidden');
 			echo("You are not authorized to login as anyone but you");
 		} else {

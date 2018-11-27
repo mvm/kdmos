@@ -4,16 +4,20 @@ require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/Survey.php");
 require_once(__DIR__."/../model/SurveyMapper.php");
+require_once(__DIR__."/../model/Option.php");
+require_once(__DIR__."/../model/OptionMapper.php");
 
 require_once(__DIR__."/BaseRest.php");
 
 class SurveyRest extends BaseRest {
     private $surveyMapper;
+    private $optionMapper;
 
     public function __construct() {
         parent::__construct();
 
         $this->surveyMapper = new SurveyMapper();
+        $this->optionMapper = new OptionMapper();
     }
 
     public function getCreated() {
@@ -101,11 +105,55 @@ class SurveyRest extends BaseRest {
 
         if($errors) {
             header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+            header("Content-Type: application/json");
             echo json_encode($errors);
             return;
         }
         
         header($_SERVER["SERVER_PROTOCOL"] . " 201 Created");
+    }
+
+    public function getEdit($id=NULL) {
+        $user = parent::authenticateUser();
+
+        if($id == NULL) {
+            header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+            header("Content-Type: application/json");
+            echo json_encode( array("id" => "No id provided") );
+            return;
+        }
+        
+        $survey = $this->surveyMapper->findById($id);
+        if($survey->getCreator()->getId() != $user->getId()) {
+            header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+            header("Content-Type: application/json");
+            echo json_encode( array("creator" => "User did not create survey") );
+            return;
+        }
+        
+        $result = array();
+
+        $result["id"] = $survey->getId();
+        $result["title"] = $survey->getTitle();
+        $result["description"] = $survey->getDescription();
+        $result["creator_id"] = $survey->getCreator()->getId();
+        $result["options"] = array();
+
+        $survey->setOptions($this->optionMapper->findBySurvey($survey));
+
+        foreach($survey->getOptions() as $option) {
+            $opt_array = array();
+            $opt_array["id"] = $option->getId();
+            $opt_array["day"] = $option->getDay()->format("Y-m-d");
+            $opt_array["start"] = $option->getStart()->format("H:i:s");
+            $opt_array["end"] = $option->getEnd()->format("H:i:s");
+            array_push($result["options"], $opt_array);
+        }
+
+        header($_SERVER["SERVER_PROTOCOL"] . " 200 Ok");
+        header("Content-Type: application/json");
+        echo json_encode( $result );
+        return;
     }
 }
 
@@ -113,6 +161,7 @@ $surveyRest = new SurveyRest();
 URIDispatcher::getInstance()
     ->map("GET", "/survey/created", array($surveyRest, "getCreated"))
     ->map("GET", "/survey/participated", array($surveyRest, "getParticipated"))
-    ->map("POST", "/survey", array($surveyRest, "create"));
+    ->map("POST", "/survey", array($surveyRest, "create"))
+    ->map("GET", "/survey/$1", array($surveyRest, "getEdit"));
 
 ?>
