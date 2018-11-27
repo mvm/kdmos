@@ -155,6 +155,91 @@ class SurveyRest extends BaseRest {
         echo json_encode( $result );
         return;
     }
+
+    public function putEdit($id = NULL, $data = NULL) {
+        $user = parent::authenticateUser();
+        $errors = array();
+
+        if($id == NULL || $data == NULL) {
+            $errors["data"] = "Data not provided";
+        }
+
+        if($errors) {
+            goto errors;
+        }
+
+        $s = $this->surveyMapper->findById($id);
+        if($s->getCreator()->getId() != $user->getId()) {
+            $errors["creator"] = "User is not creator of survey";
+        }
+
+        if(!isset($data->title)) {
+            $errors["title"] = "Title not specified";
+        }
+
+        if(!isset($data->description)) {
+            $errors["description"] = "Description not specified";
+        }
+
+        if(!isset($data->deleted))
+            $errors["deleted"] = "Deleted options not specified";
+        if(!isset($data->edited))
+            $errors["edited"] = "Edited options not specified";
+        if(!isset($data->new))
+            $errors["new"] = "New options not specified";
+        
+        if($errors) {
+            goto errors;
+        }
+
+        $s->setTitle($data->title);
+        $s->setDescription($data->description);
+
+        try {
+            $s->checkIsValidForUpdate();
+            $this->surveyMapper->update($s);
+        } catch(ValidationException $e) {
+            $errors = $e->getErrors();
+            goto errors;
+        }
+
+        foreach($data->deleted as $opt_id) {
+            $opt = new Option($opt_id);
+            $this->optionMapper->delete($opt);
+        }
+
+        foreach($data->edited as $opt_arr) {
+            $opt = new Option($opt_arr->id, $s->getId(),
+            $opt_arr->day, $opt_arr->start, $opt_arr->end);
+
+            try {
+                $opt->checkValid();
+                $this->optionMapper->update($opt);
+            } catch(ValidationException $e) {
+                $errors = $e->getErrors();
+                goto errors;
+            }
+        }
+
+        foreach($data->new as $opt_arr) {
+            $opt = new Option(0, $s->getId(),
+            $opt_arr->day, $opt_arr->start, $opt_arr->end);
+            try {
+                $opt->checkValid();
+                $this->optionMapper->save($opt);
+            } catch(ValidationException $e) {
+                $errors = $e->getErrors();
+                goto errors;
+            }
+        }
+        
+        header($_SERVER["SERVER_PROTOCOL"] . " 200 Ok");
+        return;
+      errors:
+        header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+        header("Content-Type: application/json");
+        echo json_encode($errors);
+    }
 }
 
 $surveyRest = new SurveyRest();
@@ -162,6 +247,7 @@ URIDispatcher::getInstance()
     ->map("GET", "/survey/created", array($surveyRest, "getCreated"))
     ->map("GET", "/survey/participated", array($surveyRest, "getParticipated"))
     ->map("POST", "/survey", array($surveyRest, "create"))
-    ->map("GET", "/survey/$1", array($surveyRest, "getEdit"));
+    ->map("GET", "/survey/$1", array($surveyRest, "getEdit"))
+    ->map("PUT", "/survey/$1", array($surveyRest, "putEdit"));
 
 ?>

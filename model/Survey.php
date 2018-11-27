@@ -58,6 +58,18 @@ class Survey {
         $this->options = $options;
     }
 
+    public function checkIsValidForUpdate() {
+        $errors = array();
+
+        if(strlen(trim($this->title)) == 0) {
+            $errors["title"] = "Title not specified";
+        }
+        
+        if(sizeof($errors) > 0) {
+            throw new ValidationException($errors, "survey not valid");
+        }
+    }
+    
     public function checkIsValidForCreate() {
         $errors = array();
 
