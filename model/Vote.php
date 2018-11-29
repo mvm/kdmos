@@ -18,7 +18,7 @@ class Vote{
 		return $this->user_id;
 	}
 	
-	public function setUserId(){
+	public function setUserId($user_id){
 		$this->user_id=$user_id;
 	}
 	
