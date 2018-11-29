@@ -1,16 +1,17 @@
-<div>
-<header>
-  <h1>Blog</h1>
-  <nav id="menu">
-    <ul>
-      <li><a href="#posts">{{i18n 'Posts'}}</a></li>
-      <li>
-        <div id="userbar">Loading...</div>
+<nav class="navbar navbar-expand-sm" id="navbar">
+  <div class="container-fluid">
+    <a href="index.php"><span class="navbar-brand" id="logo">Kdamos?</span></a>
+    <ul class="navbar-nav justify-content-center">
+      <li class="nav-item">
+	<div class="btn-group" role="group">
+	  <a href="?controller=surveys&action=add" class="btn btn-light"><i class="blackicon fas fa-plus"></i></a>
+	  <a href="?controller=surveys&action=list_participated" class="btn btn-light"><i class="blackicon fas fa-search"></i></a>
+	  <a href="?controller=surveys&action=list_created" class="btn btn-light"><i class="blackicon fas fa-search-plus"></i></a>
+	</div>
       </li>
     </ul>
-  </nav>
-
-</header>
+  </div>
+</nav>
 
 <!-- router contents -->
 <main id="maincontent">Loading...</main>
