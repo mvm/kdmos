@@ -30,6 +30,9 @@ body{
 	color:white;
 }
 
+.navbar a {
+    color: white;
+}
 
 .navbar-toggler-icon{
 	position:left;
