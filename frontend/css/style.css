@@ -34,6 +34,10 @@ body{
     color: white;
 }
 
+.dropdown-menu a {
+    color: black;
+}
+
 .navbar-toggler-icon{
 	position:left;
 }
