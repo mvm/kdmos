@@ -25,6 +25,10 @@ class MainComponent extends Fronty.RouterComponent {
 		component: new SurveyAddComponent(userModel, this),
 		title: 'Add Survey'
 	    },
+	    'created-surveys': {
+		component: new SurveyCreatedComponent(this),
+		title: 'Created Surveys'
+	    },
 	    login: {
 		component: new LoginComponent(userModel, this),
 		title: 'Login'
