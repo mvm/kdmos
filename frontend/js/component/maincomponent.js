@@ -6,6 +6,7 @@ class MainComponent extends Fronty.RouterComponent {
 	// we can instantiate models at any place
 	var userModel = new UserModel();
 	var postsModel = new PostsModel();
+	var surveysModel = new SurveysModel();
 	this.userService = new UserService();
 	
 	super.setRouterConfig({
@@ -26,7 +27,7 @@ class MainComponent extends Fronty.RouterComponent {
 		title: 'Add Survey'
 	    },
 	    'created-surveys': {
-		component: new SurveyCreatedComponent(this),
+		component: new SurveyCreatedComponent(surveysModel, userModel, this),
 		title: 'Created Surveys'
 	    },
 	    login: {
