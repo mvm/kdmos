@@ -61,11 +61,10 @@ class VoteRest extends BaseRest {
 					header($_SERVER["SERVER_PROTOCOL"] . " 201 Created");
 					header("Content-Type: application/json");
 					echo(json_encode($vote));
-				}
-		}
-	}
-	
+        }
+    }
 }
+
 
 // URI-MAPPING for this Rest endpoint
 $votesRest = new VoteRest();
