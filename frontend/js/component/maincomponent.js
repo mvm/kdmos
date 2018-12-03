@@ -21,9 +21,9 @@ class MainComponent extends Fronty.RouterComponent {
 		component: new PostEditComponent(postsModel, userModel, this),
 		title: 'Edit Post'
 	    },
-	    'add-post': {
-		component: new PostAddComponent(postsModel, userModel, this),
-		title: 'Add Post'
+	    'add-survey': {
+		component: new SurveyAddComponent(userModel, this),
+		title: 'Add Survey'
 	    },
 	    login: {
 		component: new LoginComponent(userModel, this),
