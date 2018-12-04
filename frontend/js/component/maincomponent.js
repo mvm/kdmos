@@ -64,7 +64,7 @@ class MainComponent extends Fronty.RouterComponent {
 	    this.userService.login($("#loginEmail").val(), $("#loginPass").val())
 		.then(() => {
 		    userModel.setLoggeduser($("#loginEmail").val());
-		    this.goToPage("posts");
+		    this.goToPage("login");
 		})
 		.catch((error) => {
 		    userModel.set((model) => {
