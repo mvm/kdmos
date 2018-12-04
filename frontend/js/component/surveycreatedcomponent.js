@@ -35,11 +35,11 @@ class SurveyCreatedComponent extends Fronty.ModelComponent {
 
 class SurveyRowComponent extends Fronty.ModelComponent {
     constructor(surveyModel, userModel, router, surveysComponent) {
-	super(Handlebars.templates.surveyrow, surveyModel, null, null);
+	super(Handlebars.templates.surveyrow, surveyModel);
 
 	this.surveysComponent = surveysComponent;
 	this.userModel = userModel;
 	this.surveyModel = surveyModel;
-	surveyModel.createdMode = surveysComponent.createdMode;
+	this.surveyModel.createdMode = surveysComponent.createdMode;
     }
 }
