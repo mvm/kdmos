@@ -11,7 +11,7 @@
 	</tr>
 	<tbody>
 	  {{#each surveys}}
-	  
+	  <tr fronty-component="SurveyRowComponent" key="{{id}}" model="surveys[{{@index}}]" id="item-{{id}}"></tr>
 	  {{/each}}
 	</tbody>
       </table>

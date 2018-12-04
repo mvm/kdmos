@@ -35,8 +35,10 @@ Promise.all([
       Handlebars.templates.surveyadd = Handlebars.compile(source)),
     loadTextFile('templates/components/survey-list.hbs').then((source) =>
       Handlebars.templates.surveylist = Handlebars.compile(source)),
+    loadTextFile('templates/components/survey-row.hbs').then((source) =>
+      Handlebars.templates.surveyrow = Handlebars.compile(source)),
     loadTextFile('templates/components/posts-table.hbs').then((source) =>
-      Handlebars.templates.poststable = Handlebars.compile(source)),
+      Handlebars.templates.poststable = Handlebars.compile(source)),      
     loadTextFile('templates/components/post-edit.hbs').then((source) =>
       Handlebars.templates.postedit = Handlebars.compile(source)),
     loadTextFile('templates/components/post-view.hbs').then((source) =>
