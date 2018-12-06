@@ -6,11 +6,11 @@ class UserService {
   loginWithSessionData() {
     var self = this;
     return new Promise((resolve, reject) => {
-      if (window.sessionStorage.getItem('login') &&
+	  if (window.sessionStorage.getItem('login') &&
         window.sessionStorage.getItem('pass')) {
         self.login(window.sessionStorage.getItem('login'), window.sessionStorage.getItem('pass'))
-          .then(() => {
-            resolve(window.sessionStorage.getItem('login'));
+          .then((user) => {
+			resolve(user);
           })
           .catch(() => {
             reject();
@@ -30,7 +30,7 @@ class UserService {
             xhr.setRequestHeader("Authorization", "Basic " + btoa(login + ":" + pass));
           }
         })
-        .then(() => {
+        .then((user) => {
           //keep this authentication forever
           window.sessionStorage.setItem('login', login);
           window.sessionStorage.setItem('pass', pass);
@@ -39,7 +39,7 @@ class UserService {
               xhr.setRequestHeader("Authorization", "Basic " + btoa(login + ":" + pass));
             }
           });
-          resolve();
+          resolve(user);
         })
         .fail((error) => {
           window.sessionStorage.removeItem('login');
