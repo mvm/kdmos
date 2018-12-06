@@ -1,12 +1,16 @@
 class UserModel extends Fronty.Model {
-  constructor() {
+  constructor(id, name, surname, email, pass) {
     super('UserModel');
+	
+	
     this.isLogged = false;
   }
 
   setLoggeduser(loggedUser) {
     this.set((self) => {
       self.currentUser = loggedUser;
+	/*  Object.assign(self, loggedUser);
+	  alert(JSON.stringify(self));*/
       self.isLogged = true;
     });
   }
