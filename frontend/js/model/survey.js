@@ -51,4 +51,10 @@ class SurveyModel extends Fronty.Model {
 	    self.options.push(new OptionModel(id));
 	});
     }
+
+    deleteOption(id) {
+	this.set((self) => {
+	    self.options = self.options.filter(o => o.id != id);
+	});
+    }
 }

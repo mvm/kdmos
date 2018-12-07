@@ -1,7 +1,6 @@
 class MainComponent extends Fronty.RouterComponent {
     constructor() {
 	super('frontyapp', Handlebars.templates.main, 'maincontent');
-
 	// models instantiation
 	// we can instantiate models at any place
 	var userModel = new UserModel();

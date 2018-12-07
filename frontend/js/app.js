@@ -45,13 +45,11 @@ Promise.all([
       Handlebars.templates.postedit = Handlebars.compile(source)),
     loadTextFile('templates/components/post-view.hbs').then((source) =>
       Handlebars.templates.postview = Handlebars.compile(source)),
-	loadTextFile('templates/components/register.hbs').then((source) =>
-      Handlebars.templates.register = Handlebars.compile(source)),
     loadTextFile('templates/components/post-row.hbs').then((source) =>
       Handlebars.templates.postrow = Handlebars.compile(source))
   ])
   .then(() => {
-    $(() => {
+      $(() => {
       new MainComponent().start();
     });
   }).catch((err) => {
