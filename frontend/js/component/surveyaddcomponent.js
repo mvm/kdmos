@@ -6,20 +6,9 @@ class SurveyAddComponent extends Fronty.ModelComponent {
 	this.surveyModel = surveyModel;
 	this.optctr = 1;
 	this.surveyModel.options = [new OptionModel(1)];
-	this.activateDeleteButton(1);
 
 	this.addEventListener('click', "#entry_add_date", () => {
 	    this.surveyModel.newOption(++this.optctr);
-	    this.activateDeleteButton(this.optctr);
-	});
-    }
-
-    setCalendar(id) {
-    }
-    
-    activateDeleteButton(id) {
-	this.addEventListener('click', "#date" + id + "_del", () => {
-	    this.surveyModel.deleteOption(id);
 	});
     }
 
@@ -37,6 +26,7 @@ class OptionComponent extends Fronty.ModelComponent {
 
     afterRender() {
 	var date_id = "date" + this.optionModel.id;
+	var id = this.optionModel.id;
 	
 	$("#" + date_id + "_day").datetimepicker({
 	    format: 'YYYY-MM-DD'
@@ -49,6 +39,10 @@ class OptionComponent extends Fronty.ModelComponent {
 	});
 	$("#" + date_id + "_end").datetimepicker({
 	    format: 'HH:mm:00'
+	});
+
+	this.addEventListener('click', "#" + date_id + "_del", () => {
+	    this.surveyAddComponent.surveyModel.deleteOption(id);
 	});
     }
 }
