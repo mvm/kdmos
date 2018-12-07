@@ -1,6 +1,7 @@
 class MainComponent extends Fronty.RouterComponent {
     constructor() {
 	super('frontyapp', Handlebars.templates.main, 'maincontent');
+
 	// models instantiation
 	// we can instantiate models at any place
 	var userModel = new UserModel();
@@ -36,7 +37,7 @@ class MainComponent extends Fronty.RouterComponent {
 		title: 'Participated Surveys'
 	    },
 	    login: {
-		component: new LoginComponent(userModel, this),
+		component: new LoginComponent(this.userModel, this),
 		title: 'Login'
 	    },
 	    defaultRoute: 'login'
@@ -75,6 +76,11 @@ class MainComponent extends Fronty.RouterComponent {
 		});
 	});
 
+	this.addEventListener('click', '#registerlink', () => {
+      this.userModel.set(() => {
+        this.userModel.registerMode = true;
+      });
+    });
 	
 	return userbar;
     }
