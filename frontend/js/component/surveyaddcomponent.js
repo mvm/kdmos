@@ -14,6 +14,9 @@ class SurveyAddComponent extends Fronty.ModelComponent {
 	});
     }
 
+    setCalendar(id) {
+    }
+    
     activateDeleteButton(id) {
 	this.addEventListener('click', "#date" + id + "_del", () => {
 	    this.surveyModel.deleteOption(id);
@@ -30,5 +33,22 @@ class OptionComponent extends Fronty.ModelComponent {
 	super(Handlebars.templates.option, optionModel);
 	this.optionModel = optionModel;
 	this.surveyAddComponent = surveyAddComponent;
+    }
+
+    afterRender() {
+	var date_id = "date" + this.optionModel.id;
+	
+	$("#" + date_id + "_day").datetimepicker({
+	    format: 'YYYY-MM-DD'
+	});
+	$("#" + date_id + "_start").datetimepicker({
+	    format: 'HH:mm:00'
+	});
+	$("#" + date_id + "_start").on("change.datetimepicker", function(e) {
+	    $("#" + date_id + "_end").datetimepicker("minDate", e.date);
+	});
+	$("#" + date_id + "_end").datetimepicker({
+	    format: 'HH:mm:00'
+	});
     }
 }
