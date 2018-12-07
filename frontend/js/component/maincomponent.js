@@ -5,6 +5,7 @@ class MainComponent extends Fronty.RouterComponent {
 	// models instantiation
 	// we can instantiate models at any place
 	var userModel = new UserModel();
+	this.userModel = userModel;
 	var postsModel = new PostsModel();
 	var surveysCreatedModel = new SurveysModel();
 	var surveysPartModel = new SurveysModel();
@@ -62,9 +63,9 @@ class MainComponent extends Fronty.RouterComponent {
 
 	userbar.addEventListener('click', '#loginSubmit', (event) => {
 	    this.userService.login($("#loginEmail").val(), $("#loginPass").val())
-		.then(() => {
-		    userModel.setLoggeduser($("#loginEmail").val());
-		    this.goToPage("posts");
+		.then((user) => {
+		    userModel.setLoggeduser(user);
+		    this.goToPage("login");
 		})
 		.catch((error) => {
 		    userModel.set((model) => {
@@ -75,17 +76,23 @@ class MainComponent extends Fronty.RouterComponent {
 		});
 	});
 
-	// do relogin
-	userService.loginWithSessionData()
-	    .then(function(logged) {
-		if (logged != null) {
-		    userModel.setLoggeduser(logged);
-		}
-	    });
-
+	
 	return userbar;
     }
 
+	start() {
+		// do relogin
+		var userService = new UserService();
+		userService.loginWithSessionData()
+	    .then((logged) => {
+			//alert(JSON.stringify(logged));
+			if (logged != null) {
+				this.userModel.setLoggeduser(logged);
+			}
+			super.start();
+	    });
+
+	}
     _createLanguageComponent() {
 	var languageComponent = new Fronty.ModelComponent(Handlebars.templates.language, this.routerModel, 'languagecontrol');
 	// language change links

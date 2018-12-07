@@ -45,9 +45,17 @@ class UserRest extends BaseRest {
 			echo("You are not authorized to login as anyone but you");
 		} else {
 			header($_SERVER['SERVER_PROTOCOL'].' 200 Ok');
-			echo("Hello ".$currentLogged->getName());
+			header('Content-Type: application/json');
+			echo(json_encode(array(
+				"id"=>$currentLogged->getId(),
+				"name"=>$currentLogged->getName(),
+				"surname"=>$currentLogged->getSurname(),
+				"email"=>$currentLogged->getEmail(),
+				"pass"=>$currentLogged->getPass()
+			)));
 		}
 	}
+	
 }
 
 // URI-MAPPING for this Rest endpoint
