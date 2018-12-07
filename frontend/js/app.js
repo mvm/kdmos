@@ -37,6 +37,8 @@ Promise.all([
       Handlebars.templates.surveylist = Handlebars.compile(source)),
     loadTextFile('templates/components/survey-row.hbs').then((source) =>
       Handlebars.templates.surveyrow = Handlebars.compile(source)),
+    loadTextFile('templates/components/option.hbs').then((source) =>
+      Handlebars.templates.option = Handlebars.compile(source)),
     loadTextFile('templates/components/posts-table.hbs').then((source) =>
       Handlebars.templates.poststable = Handlebars.compile(source)),      
     loadTextFile('templates/components/post-edit.hbs').then((source) =>

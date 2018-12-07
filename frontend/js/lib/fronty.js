@@ -1731,7 +1731,7 @@ var ModelComponent = function (_Component) {
 
       if (this.stopped) {
         for (var modelName in this.models) {
-          if (this.models.hasOwnProperty(modelName)) {
+            if (this.models.hasOwnProperty(modelName)) {
             this.models[modelName].addObserver(this.updater);
           }
         }
