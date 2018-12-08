@@ -10,7 +10,7 @@ I18n.translations = {
 	'Name': 'Nombre',
 	'Surname': 'Apellidos',
 	'Email': 'Correo',
-	'Sign up': 'Conéctate',
+	'Sign up': 'Regístrate',
 	
 	'Title': 'Título',
 	'Description': 'Descripción',
