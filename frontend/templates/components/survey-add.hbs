@@ -22,7 +22,7 @@
 	    <div class="row">
 	      <span>{{i18n 'In which dates will you meet?'}}</span>
 	    </div>
-	    {{error.options}}
+	    {{errors.options}}
 	    {{#each options}}
 	    <div fronty-component="OptionComponent" key="{{id}}" model="options[{{@index}}]" id="date-{{id}}"></div>
 	     {{/each}}
