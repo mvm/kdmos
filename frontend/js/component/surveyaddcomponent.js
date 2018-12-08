@@ -4,11 +4,44 @@ class SurveyAddComponent extends Fronty.ModelComponent {
 	
 	super(Handlebars.templates.surveyadd, surveyModel);
 	this.surveyModel = surveyModel;
+	this.surveysService = new SurveysService();
+	this.router = router;
+	
 	this.optctr = 1;
 	this.surveyModel.options = [new OptionModel(1)];
 
 	this.addEventListener('click', "#entry_add_date", () => {
 	    this.surveyModel.newOption(++this.optctr);
+	});
+
+	this.addEventListener('click', "#submitbutton", () => {
+	    var survey = {}
+
+	    survey.title = $("#surveytitle").val();
+	    survey.description = $("#surveydescription").val();
+	    survey.options = [];
+
+	    this.surveyModel.options.forEach( (x) => {
+		var opt = {};
+		opt.day = $("#date" + x.id + "_day").val();
+		opt.start = $("#date" + x.id + "_start").val();
+		opt.end = $("#date" + x.id + "_end").val();
+		survey.options.push(opt);
+	    });
+
+	    this.surveysService.addSurvey(survey)
+		.then( () => {
+		    this.router.goToPage('created-surveys');
+		})
+		.fail((xhr, errorThrown, statusText) => {
+		    if(xhr.status == 400) {
+			this.surveyModel.set(() => {
+			    this.surveyModel.errors = xhr.responseJSON;
+			});
+		    } else {
+			alert("an error has occurred during request: " + statusText + "." + xhr.responseText);
+		    }
+		});
 	});
     }
 

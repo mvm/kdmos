@@ -3,7 +3,7 @@
       <div class="col">
 	<div class="container">
 	  <div class="form-group">
-	    <input type="text" id="surveytitle" class="form-control-lg main-control" placeholder="{{i18n 'Title'}}"></input>
+	    {{errors.title}} <input type="text" id="surveytitle" class="form-control-lg main-control" placeholder="{{i18n 'Title'}}"></input>
 	  </div>
 	  <div class="form-group">
 	    <input type="text" id="surveydescription" class="form-control" placeholder="{{i18n 'Description'}}"></input>
@@ -22,6 +22,7 @@
 	    <div class="row">
 	      <span>{{i18n 'In which dates will you meet?'}}</span>
 	    </div>
+	    {{error.options}}
 	    {{#each options}}
 	    <div fronty-component="OptionComponent" key="{{id}}" model="options[{{@index}}]" id="date-{{id}}"></div>
 	     {{/each}}
