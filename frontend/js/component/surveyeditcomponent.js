@@ -70,19 +70,6 @@ class SurveyEditComponent extends Fronty.ModelComponent {
 	}
     }
 
-    deleteOption(id) {
-	var idxFetched = this.surveyModel.fetched.findIndex( x => x == id);
-	if(idxFetched != -1) {
-	    this.surveyModel.deleted.push(this.surveyModel.fetched[idxFetched]);
-	    this.surveyModel.edited.splice(idxFetched,1);
-	}
-
-	var idxAdded = this.surveyModel.added.findIndex( x => x == id);
-	if(idxAdded != -1) {
-	    this.surveyModel.added.splice(idxAdded,1);
-	}
-    }
-
     createChildModelComponent(className, element, id, modelItem) {
 	return new OptionComponent(modelItem, this, );
     }

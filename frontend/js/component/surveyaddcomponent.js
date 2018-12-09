@@ -95,8 +95,6 @@ class OptionComponent extends Fronty.ModelComponent {
 
 	this.addEventListener('click', "#" + date_id + "_del", () => {
 	    this.surveyComponent.surveyModel.deleteOption(id);
-	    if(this.surveyComponent.deleteOption)
-		this.surveyComponent.deleteOption(id);
 	});
     }
 }

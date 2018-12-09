@@ -52,15 +52,18 @@ class VotesComponent extends Fronty.ModelComponent {
 	
 	showOptions(){
 		var votes;
-		var survey;
+	    var survey;
 		var id = new URLSearchParams(window.location.hash.split('?')[1]).get('id');
-		survey = this.votesService.findSurvey(id);
-		votes = this.votesService.findVotes(id);
-		votes.then((data) => {
+	    survey = this.votesService.findSurvey(id);
+	    
+	    votes = this.votesService.findVotes(id);
+	    console.log("votes = " + JSON.stringify(votes));
+	    votes.then((data) => {
+				    console.log(JSON.stringify(data));
 			this.votesModel.setVotes(
 			data.map(
 				(item) => new VoteModel(item.user, item.survey_option, item.vote)
-				));
+			));
 		});
 	}
 	
