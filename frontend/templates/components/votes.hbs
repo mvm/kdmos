@@ -15,58 +15,32 @@
 							<p><div class="divTable Tabla">
 
 								<div class="divTableRow">
-									<div class="divTableCell corner"></div>
-									{{votes.[0].survey_option.id}}									
+									<div class="divTableCell corner"></div>									
 									{{#each votes}}
-									{{#if vote.survey_option.id == votes.[0].survey_option.id }}
+									{{#if_compare_option}}
 										<div class="divTableCell d-none d-sm-table-cell">{{ vote.user.name." ".vote.user.surname}}</div>
 									{{/if}}
 									{{/each}}
 										<div class="divTableCell">Total</div>
 								</div>
 								<div class="divTableRow">
-								<div class="divTableCell">{{votes.[0].survey_option.day->format("Y-m-d")." ".votes.[0].survey_option.start->format("H:i:s")."-".votes.[0].survey_option.end->format("H:i:s")}}</div>
-									<script> var total=0 </script>
+								<div class="divTableCell">{{votes.[0].survey_option.day." ".votes.[0].survey_option.start."-".votes.[0].survey_option.end}}</div>
 										{{#each votes}}
-											{{#if vote.survey_option.id == votes.[0].survey_option.id}}
+											{{#if_compare_option}}
 												<div class="divTableCell d-none d-sm-table-cell">
-												<script type="text/javascript">
-												  var valor = vote.vote;
-													switch (valor){
-														case "Y":
-															document.write("<i class='fas fa-2x fa-check option'></i>");
-															total+=1;
-															break;
-														case "N":
-															document.write("<i class='fas fa-2x fa-times option'></i>");
-															break;
-														default:
-															document.write("<i class='fas fa-2x fa-question option'></i>");		
-													}
-												</script></div>
+													{{#valor}}
+												</div>
 											{{else}}
-												<div class="divTableCell" id="total"><script type="text/javascript">document.getElementById("total").innerHTML = total </script></div>
+												<div class="divTableCell" id="total">{{#total}}</div>
 												</div>											
 												<script> total=0 </script>
 											<div class="divTableRow">
 												<div class="divTableCell">
-													{{vote.survey_option.day->format("Y-m-d")." ".vote.survey_option.start->format("H:i:s")."-".votes.survey_option.end->format("H:i:s")}}</div>
-												<div class="divTableCell d-none d-sm-table-cell">
-													<script type="text/javascript">
-													var valor = vote.vote;
-													switch (valor){
-														case "Y":
-															document.write("<i class='fas fa-2x fa-check option'></i>");
-															total+=1;
-															break;
-														case "N":
-															document.write("<i class='fas fa-2x fa-times option'></i>");
-															break;
-														default:
-															document.write("<i class='fas fa-2x fa-question option'></i>");		
-													}
-												</script></div>
-												<div class="divTableCell" id="total"><script type="text/javascript">document.getElementById("total").innerHTML = total </script></div>
+													{{vote.survey_option.day." ".vote.survey_option.start."-".votes.survey_option.end}}</div>
+												<div class="divTableCell d-none d-sm-table-cell">	
+													{{#valor}}
+												</div>
+												<div class="divTableCell" id="total">{{#total}}</div>
 												</div>{{/each}}
 							</div></p>
 							{{else}}
@@ -74,13 +48,13 @@
 							<p><div class="divTable Tabla">								
 								{{#each votes}}
 									<div class="divTableRow">
-                                        <div class="divTableCell">{{vote.survey_option.day->format("Y-m-d")." ".vote.survey_option.start->format("H:i:s")."-".votes.survey_option.end->format("H:i:s")}}</div>
+                                        <div class="divTableCell">{{vote.survey_option.day." ".vote.survey_option.start."-".votes.survey_option.end}}</div>
 										<div class="divTableCell">
 												<select class="custom-select" name="all_votes[]">
-													<option selected value="NS">Elige</option>
-													<option value="Y">Sí</option>
-													<option value="N">No</option>
-													<option value="NS">Podría ser</option>
+													<option value="NS">{{i18n 'Choose'}}</option>
+													<option value="Y">{{i18n 'Yes'}}</option>
+													<option value="N">{{i18n 'No'}}</option>
+													<option value="NS">{{i18n 'Maybe'}}</option>
 												</select>
 										</div></div>
 								</div>{{/each}}
