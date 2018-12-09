@@ -16,18 +16,18 @@ class VotesComponent extends Fronty.ModelComponent {
       });
     });
 	
+	this.addEventListener('click', '#goBack', () => {
+      this.votesService.goBack();
+      });
 	}
-	
-	
-	
-	if_compare_option(){
+/*	this.if_compare_option(){
 		var args = [].slice.apply(arguments);
 		var opts = args.pop();
 		if(opts==this.votesModel[0].survey_option.id) return true;
 		else return false;		
 	};
 	
-	valor(){
+	this.valor(){
 		var total=0;
 		var valor = vote.vote;
 		switch (valor){
@@ -43,24 +43,42 @@ class VotesComponent extends Fronty.ModelComponent {
 	}};
 	
 	
-	total(){
-	document.getElementById("total").innerHTML = total;}
+	this.total(){
+	document.getElementById("total").innerHTML = total;}*/
 	
 	onStart(){
 		this.showOptions();
 	}
 	
 	showOptions(){
-	var votes;
-	if(this.showMode == true)
-		votes = this.votesService.findVotes();
-	
-	votes.then((data) => {
-		this.votesModel.setVotes(
-		data.map(
-			(item) => new VoteModel(item.user, item.survey_option, item.vote)
-			));
-	});
+		var votes;
+		var survey;
+		var id = new URLSearchParams(window.location.hash.split('?')[1]).get('id');
+		survey = this.votesService.findSurvey(id);
+		votes = this.votesService.findVotes(id);
+		votes.then((data) => {
+			this.votesModel.setVotes(
+			data.map(
+				(item) => new VoteModel(item.user, item.survey_option, item.vote)
+				));
+		});
 	}
 	
+	
+	
+	createChildModelComponent(className, element, id, modelItem) {
+	return new VoteRowComponent(modelItem, this.userModel, this.router, this);
+    }
+	
+}
+
+class VoteRowComponent extends Fronty.ModelComponent {
+    constructor(voteModel, userModel, router, votesComponent) {
+	super(Handlebars.templates.voterow, surveyModel);
+
+	this.votesComponent = votesComponent;
+	this.userModel = userModel;
+	this.voteModel = voteModel;
+	this.voteModel.showMode = votesComponent.showMode;
+    }
 }
