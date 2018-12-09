@@ -1,7 +1,17 @@
 class UserModel extends Fronty.Model {
   constructor(id, name, surname, email, pass) {
     super('UserModel');
-	
+
+      if(id)
+	  this.id = id;
+      if(name)
+	  this.name = name;
+      if(surname)
+	  this.surname = surname;
+      if(email)
+	  this.email = email;
+      if(pass)
+	  this.pass = pass;
 	
     this.isLogged = false;
   }

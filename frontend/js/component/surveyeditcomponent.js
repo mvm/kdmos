@@ -16,6 +16,7 @@ class SurveyEditComponent extends Fronty.ModelComponent {
 	this.addEventListener("click", "#submitbutton", () => {
 	    var data = {};
 
+	    data.id = this.router.getRouteQueryParam('id');
 	    data.title = $("#surveytitle").val();
 	    data.description = $("#surveydescription").val();
 	    data.deleted = this.surveyModel.deleted;

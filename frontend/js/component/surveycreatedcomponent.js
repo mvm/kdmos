@@ -5,6 +5,7 @@ class SurveyCreatedComponent extends Fronty.ModelComponent {
 	this.surveysService = new SurveysService();
 	this.surveysModel = surveysModel;
 	this.addModel('user', userModel);
+	this.userModel = userModel;
 	this.router = router;
 	this.createdMode = createdMode;
     }
@@ -23,7 +24,7 @@ class SurveyCreatedComponent extends Fronty.ModelComponent {
 	surveys.then((data) => {
 	    this.surveysModel.setSurveys(
 		data.map(
-		    (item) => new SurveyModel(item.id, item.title, item.description)
+		    (item) => new SurveyModel(item.id, item.title, item.description, item.creator_id)
 		));
 	});
     }
@@ -40,6 +41,18 @@ class SurveyRowComponent extends Fronty.ModelComponent {
 	this.surveysComponent = surveysComponent;
 	this.userModel = userModel;
 	this.surveyModel = surveyModel;
-	this.surveyModel.createdMode = surveysComponent.createdMode;
+    }
+
+    beforeRender() {
+	if(this.surveyModel.creator_id ==
+	   this.userModel.currentUser.id) {
+	    this.surveyModel.set( (self) => {
+		self.canEdit = true;
+	    });
+	} else {
+	    this.surveyModel.set( (self) => {
+		self.canEdit = false;
+	    });
+	}
     }
 }

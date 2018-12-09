@@ -29,7 +29,8 @@ class SurveyRest extends BaseRest {
             array_push($result, array(
                 "id" => $s->getId(),
                 "title" => $s->getTitle(),
-                "description" => $s->getDescription()
+                "description" => $s->getDescription(),
+                "creator_id" => $s->getCreator()->getId()
             ));
         }
 
@@ -47,7 +48,8 @@ class SurveyRest extends BaseRest {
             array_push($result, array(
                 "id" => $s->getId(),
                 "title" => $s->getTitle(),
-                "description" => $s->getDescription()
+                "description" => $s->getDescription(),
+                "creator_id" => $s->getCreator()->getId()
             ));
         }
 
