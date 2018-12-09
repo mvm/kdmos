@@ -9,6 +9,7 @@ class MainComponent extends Fronty.RouterComponent {
 	var postsModel = new PostsModel();
 	var surveysCreatedModel = new SurveysModel();
 	var surveysPartModel = new SurveysModel();
+	var votesModel = new VotesModel();
 	this.userService = new UserService();
 	
 	super.setRouterConfig({
@@ -35,6 +36,10 @@ class MainComponent extends Fronty.RouterComponent {
 	    'participated-surveys': {
 		component: new SurveyCreatedComponent(surveysPartModel, userModel, this, false),
 		title: 'Participated Surveys'
+	    },
+		'votes': {
+		component: new VotesComponent(votesModel, userModel, this, true),
+		title: 'Votation'
 	    },
 	    login: {
 		component: new LoginComponent(this.userModel, this),
