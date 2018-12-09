@@ -1,8 +1,12 @@
 class VoteModel extends Fronty.Model{
 	constructor(user, survey_option, value){
 		super('VoteModel');
-		
-		this.showMode = true;
+		if(user)
+			this.user = user;
+		if(survey_option)
+			this.survey_option = survey_option;
+		if(value)
+			this.value = value;
 	}
 	
 	setUser(user) {
