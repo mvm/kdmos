@@ -1,79 +1,26 @@
-<span>
-	<div class="container mt-3" id="main">
-				<div class="row">
-					<div class="col">
-						<div class="container-fluid mt-3 mb-3">
-							<div align="center">						
-								<h4 class="header" >{{ survey.title }}</h4>
-							</div>
-							<div align="left">
-								<p>{{ survey.description }}</p>
-							</div>
-							
-							<div class="container" align="center">	
-							{{#if showMode}}
-							<p><div class="divTable Tabla">
-
-								<div class="divTableRow">
-									<div class="divTableCell corner"></div>									
-									{{#each votes}}
-									{{#if_compare_option}}
-										<div class="divTableCell d-none d-sm-table-cell">{{ vote.user.name." ".vote.user.surname}}</div>
-									{{/if}}
-									{{/each}}
-										<div class="divTableCell">Total</div>
-								</div>
-								<div class="divTableRow">
-								<div class="divTableCell">{{votes.[0].survey_option.day." ".votes.[0].survey_option.start."-".votes.[0].survey_option.end}}</div>
-										{{#each votes}}
-											{{#if_compare_option}}
-												<div class="divTableCell d-none d-sm-table-cell">
-													{{#valor}}
-												</div>
-											{{else}}
-												<div class="divTableCell" id="total">{{#total}}</div>
-												</div>											
-												<script> total=0 </script>
-											<div class="divTableRow">
-												<div class="divTableCell">
-													{{vote.survey_option.day." ".vote.survey_option.start."-".votes.survey_option.end}}</div>
-												<div class="divTableCell d-none d-sm-table-cell">	
-													{{#valor}}
-												</div>
-												<div class="divTableCell" id="total">{{#total}}</div>
-												</div>{{/each}}
-							</div></p>
-							{{else}}
-							<form action="index.php?controller=votes&amp;action=add&amp;survey_id={{ echo $survey->getId();}}" id="votar" method="POST">
-							<p><div class="divTable Tabla">								
-								{{#each votes}}
-									<div class="divTableRow">
-                                        <div class="divTableCell">{{vote.survey_option.day." ".vote.survey_option.start."-".votes.survey_option.end}}</div>
-										<div class="divTableCell">
-												<select class="custom-select" name="all_votes[]">
-													<option value="NS">{{i18n 'Choose'}}</option>
-													<option value="Y">{{i18n 'Yes'}}</option>
-													<option value="N">{{i18n 'No'}}</option>
-													<option value="NS">{{i18n 'Maybe'}}</option>
-												</select>
-										</div></div>
-								</div>{{/each}}
-							</div></p>
-							{{/if}}
-							{{#if showMode}}
-							<button type="button" class="btn btn-light" id="votelink">{{i18n 'Vote'}}</button>
-							{{else}}
-							<button type="submit" class="btn btn-light" name="submit" form="votar">{{i18n 'Vote'}}</button>
-							{{/if}}
-							<button onclick="goBack()"class="btn btn-light">{{i18n 'Go Back'}}</button>
-							<script>
-									function goBack() {
-										window.history.back();
-									}
-							</script>
-							<div>{{ i18n 'Link: ';  echo $_SERVER["HTTP_HOST"];echo $_SERVER["REQUEST_URI"];}}</div>
-						</div>
-					</div>
-				</div>
-			</div>
-</span>
+<div>
+  <div class="container" id="main">
+    <h1 class="header" >{{i18n 'Votation'}}</h1>
+    
+    <div class="container" align="center">			
+      <p><div class="divTable Tabla">
+		<div class="divTableRow">
+			<div class="divTableCell corner"></div>
+			{{#each votes.[1]}}
+				
+				<div class="divTableCell d-none d-sm-table-cell" >{{this}}</div>
+				
+			{{/each}}
+				<div class="divTableCell">Total</div>
+			
+		</div>
+		{{#each votes}}
+			
+		<div class="divTableRow">
+			<div class="divTableCell">{{this}}</div>
+		</div>
+		
+		{{/each}}
+	  </div></p>
+    </div>
+</div>
