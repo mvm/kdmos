@@ -18,6 +18,34 @@ class VotesComponent extends Fronty.ModelComponent {
 	
 	}
 	
+	
+	
+	if_compare_option(){
+		var args = [].slice.apply(arguments);
+		var opts = args.pop();
+		if(opts==this.votesModel[0].survey_option.id) return true;
+		else return false;		
+	};
+	
+	valor(){
+		var total=0;
+		var valor = vote.vote;
+		switch (valor){
+			case "Y": 
+				document.write("<i class='fas fa-2x fa-check option'></i>");
+				total+=1;
+				break;
+			case "N":
+				document.write("<i class='fas fa-2x fa-times option'></i>");
+				break;
+			default:
+				document.write("<i class='fas fa-2x fa-question option'></i>");		
+	}};
+	
+	
+	total(){
+	document.getElementById("total").innerHTML = total;}
+	
 	onStart(){
 		this.showOptions();
 	}
