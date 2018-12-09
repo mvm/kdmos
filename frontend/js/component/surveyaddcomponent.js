@@ -76,6 +76,7 @@ class OptionComponent extends Fronty.ModelComponent {
 	startParams.format = 'HH:mm:ss';
 	if(this.optionModel.start) {
 	    startParams.date = this.optionModel.day + " " + this.optionModel.start;
+	    $("#date" + this.optionModel.id + "_start").val( this.optionModel.start);
 	}
 
 	var endParams = {};
@@ -94,6 +95,8 @@ class OptionComponent extends Fronty.ModelComponent {
 
 	this.addEventListener('click', "#" + date_id + "_del", () => {
 	    this.surveyComponent.surveyModel.deleteOption(id);
+	    if(this.surveyComponent.deleteOption)
+		this.surveyComponent.deleteOption(id);
 	});
     }
 }
