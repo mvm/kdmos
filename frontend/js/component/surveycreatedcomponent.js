@@ -46,13 +46,9 @@ class SurveyRowComponent extends Fronty.ModelComponent {
     beforeRender() {
 	if(this.surveyModel.creator_id ==
 	   this.userModel.currentUser.id) {
-	    this.surveyModel.set( (self) => {
-		self.canEdit = true;
-	    });
+	    this.surveyModel.setCanEdit(true);
 	} else {
-	    this.surveyModel.set( (self) => {
-		self.canEdit = false;
-	    });
+	    this.surveyModel.setCanEdit(false);
 	}
     }
 }

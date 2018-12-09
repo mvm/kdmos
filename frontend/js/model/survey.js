@@ -82,5 +82,10 @@ class SurveyModel extends Fronty.Model {
 	    });
 	});
     }
-    
+
+    setCanEdit(val) {
+	this.set( (self) => {
+	    self.canEdit = val;
+	});
+    }
 }
