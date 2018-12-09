@@ -12,11 +12,7 @@ class SurveyEditComponent extends Fronty.ModelComponent {
 	if(id != null) {
 	    this.surveysService.findSurvey(id)
 		.then((survey) => {
-		    this.surveyModel.set( (self) => {
-			self.id = survey.id;
-			self.title = survey.title;
-			self.description = survey.description;
-		    });
+		    this.surveyModel.fromJSON(survey);
 		});
 	}
     }

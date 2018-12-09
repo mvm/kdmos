@@ -65,19 +65,32 @@ class OptionComponent extends Fronty.ModelComponent {
     afterRender() {
 	var date_id = "date" + this.optionModel.id;
 	var id = this.optionModel.id;
+
+	var dayParams = {};
+	dayParams.format = 'YYYY-MM-DD';
+	if(this.optionModel.day) {
+	    dayParams.date = this.optionModel.day;
+	}
+
+	var startParams = {};
+	startParams.format = 'HH:mm:ss';
+	if(this.optionModel.start) {
+	    startParams.date = this.optionModel.day + " " + this.optionModel.start;
+	}
+
+	var endParams = {};
+	endParams.format = 'HH:mm:ss';
+	if(this.optionModel.end) {
+	    endParams.date = this.optionModel.day + " " + this.optionModel.end;
+	}
 	
-	$("#" + date_id + "_day").datetimepicker({
-	    format: 'YYYY-MM-DD'
-	});
-	$("#" + date_id + "_start").datetimepicker({
-	    format: 'HH:mm:00'
-	});
-	$("#" + date_id + "_start").on("change.datetimepicker", function(e) {
-	    $("#" + date_id + "_end").datetimepicker("minDate", e.date);
-	});
-	$("#" + date_id + "_end").datetimepicker({
-	    format: 'HH:mm:00'
-	});
+	$("#" + date_id + "_day").datetimepicker(dayParams);
+	$("#" + date_id + "_start").datetimepicker(startParams);
+	$("#" + date_id + "_start").on("change.datetimepicker",
+				       function(e) {
+					   $("#" + date_id + "_end").datetimepicker("minDate", e.date);
+				       });
+	$("#" + date_id + "_end").datetimepicker(endParams);
 
 	this.addEventListener('click', "#" + date_id + "_del", () => {
 	    this.surveyComponent.surveyModel.deleteOption(id);

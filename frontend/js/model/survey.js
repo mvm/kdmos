@@ -58,4 +58,19 @@ class SurveyModel extends Fronty.Model {
 	});
     }
 
+    fromJSON(survey) {
+	this.set((self) => {
+	    self.id = survey.id;
+	    self.title = survey.title;
+	    self.description = survey.description;
+	    survey.options.forEach( (option) => {
+		var optionModel = new OptionModel(option.id,
+						  option.day,
+						  option.start,
+						  option.end);
+		self.options.push(optionModel);
+	    });
+	});
+    }
+    
 }
