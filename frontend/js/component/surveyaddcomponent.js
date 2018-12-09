@@ -51,10 +51,15 @@ class SurveyAddComponent extends Fronty.ModelComponent {
 }
 
 class OptionComponent extends Fronty.ModelComponent {
-    constructor(optionModel, surveyAddComponent) {
+    constructor(optionModel, surveyComponent, editMode) {
 	super(Handlebars.templates.option, optionModel);
 	this.optionModel = optionModel;
-	this.surveyAddComponent = surveyAddComponent;
+	this.surveyComponent = surveyComponent;
+
+	if(editMode && editMode == true)
+	    this.editMode = true;
+	else
+	    this.editMode = false;
     }
 
     afterRender() {
@@ -75,7 +80,7 @@ class OptionComponent extends Fronty.ModelComponent {
 	});
 
 	this.addEventListener('click', "#" + date_id + "_del", () => {
-	    this.surveyAddComponent.surveyModel.deleteOption(id);
+	    this.surveyComponent.surveyModel.deleteOption(id);
 	});
     }
 }
