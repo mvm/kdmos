@@ -7,8 +7,8 @@ class SurveyAddComponent extends Fronty.ModelComponent {
 	this.surveysService = new SurveysService();
 	this.router = router;
 	
-	this.optctr = 1;
-	this.surveyModel.options = [new OptionModel(1)];
+	this.optctr = -1000;
+	this.surveyModel.options = [new OptionModel(-1001)];
 
 	this.addEventListener('click', "#entry_add_date", () => {
 	    this.surveyModel.newOption(++this.optctr);
@@ -94,6 +94,7 @@ class OptionComponent extends Fronty.ModelComponent {
 	$("#" + date_id + "_end").datetimepicker(endParams);
 
 	this.addEventListener('click', "#" + date_id + "_del", () => {
+	    alert("delete");
 	    this.surveyComponent.surveyModel.deleteOption(id);
 	});
     }

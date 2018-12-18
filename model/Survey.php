@@ -21,6 +21,10 @@ class Survey {
         return $this->id;
     }
 
+    public function setId($id) {
+        $this->id = $id;
+    }
+    
     public function newId() {
         $this->id = rand();
         return $this->id;

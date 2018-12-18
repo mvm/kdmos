@@ -42,6 +42,18 @@ class SurveysController extends BaseController {
         $this->view->render("surveys", "showall");
     }
 
+    public function added() {
+        if(!isset($this->currentUser)) {
+            $this->view->redirect("users","login");
+            return;
+        }
+
+        $survey = new Survey();
+        $survey->setId($_REQUEST["id"]);
+        $this->view->setVariable("survey", $survey);
+        $this->view->render("surveys", "added");
+    }
+
     public function add() {
         if(!isset($this->currentUser)) {
             $this->view->redirect("users", "login");
@@ -77,8 +89,7 @@ class SurveysController extends BaseController {
                 $survey->checkIsValidForCreate();
 
                 $this->surveyMapper->save($survey);
-                $this->view->setVariable("survey", $survey);
-                $this->view->render("surveys", "added");
+                $this->view->redirect("surveys", "added", "id=" . $survey->getId());
             } catch(ValidationException $ex) {
                 $errors = $ex->getErrors();
                 $this->view->setVariable("errors", $errors);
