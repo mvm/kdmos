@@ -59,15 +59,20 @@ class SurveyModel extends Fronty.Model {
 
     deleteOption(id) {
 	this.set((self) => {
-	    var idxFetched = fetched.findIndex( x => x == id);
-	    if(idxFetched != -1) {
-		this.deleted.push(this.surveyModel.fetched[idxFetched]);
-		this.edited.splice(idxFetched,1);
+
+	    if(self.fetched) {
+		var idxFetched = self.fetched.findIndex( x => x == id);
+		if(idxFetched != -1) {
+		    self.deleted.push(self.fetched[idxFetched]);
+		    self.fetched.splice(idxFetched,1);
+		}
 	    }
 
-	    var idxAdded = this.added.findIndex( x => x == id);
-	    if(idxAdded != -1) {
-		this.added.splice(idxAdded,1);
+	    if(self.added) {
+		var idxAdded = self.added.findIndex( x => x == id);
+		if(idxAdded != -1) {
+		    self.added.splice(idxAdded,1);
+		}
 	    }
 	    
 	    self.options = self.options.filter(o => o.id != id);
