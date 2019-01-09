@@ -8,11 +8,11 @@ class VotesService {
 	
 	addVotes(id, votes){
 		return $.ajax({
-			url: AppConfig.backendServer+'/rest/votes/' + id + '/votes',
+			url: AppConfig.backendServer+'/rest/votes/' + id,
 			method: 'PUT',
 			data: JSON.stringify(votes),
 			contentType: 'application/json'
-		})
+		});
 	}
 	
 	findSurvey(id) {
