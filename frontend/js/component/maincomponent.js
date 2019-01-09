@@ -45,6 +45,10 @@ class MainComponent extends Fronty.RouterComponent {
 		component: new VotesComponent(votesModel, userModel, this, true),
 		title: 'Votation'
 	    },
+		'add-votes': {
+		component: new VotesAddComponent(votesModel, userModel, this),
+		title: 'Select your votes'
+	    },
 	    login: {
 		component: new LoginComponent(this.userModel, this),
 		title: 'Login'
