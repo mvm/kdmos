@@ -128,7 +128,7 @@ class VotesController extends BaseController {
 
 			$this->view->setVariable("survey", $survey);
 			$this->view->setVariable("votes", $votesByOption);
-			$this->view->render("votes","show");
+			$this->view->redirect("votes","show","survey_id=".$survey->getId());
 		}else{
 		$survey_id = $_REQUEST["survey_id"];
 		$options_survey = $this->voteMapper->findOptionsBySurveyId($survey_id);
