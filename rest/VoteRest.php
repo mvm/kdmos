@@ -34,18 +34,58 @@ class VoteRest extends BaseRest {
 		$currentUser = parent::authenticateUser();
 		
 		$votes = $this->voteMapper->findBySurveyId($survey_id);
+		$options = $this->voteMapper->findOptionsBySurveyId($survey_id);
 		$survey = $this->surveyMapper->findById($survey_id);
+		$result = array();
+		if ($currentUser == NULL) {
+			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
+			echo("You must be logged to see the survey");
+			return;
+		}
 		if ($survey == NULL) {
 			header($_SERVER['SERVER_PROTOCOL'].' 400 Bad request');
 			echo("Survey with id ".$survey_id." not found");
 			return;
 		}
+		foreach($options as $hueco){
+				$option = array();
+				$option["option_id"] = $hueco->getId();
+				$option["day"] = $hueco->getDay()->format("Y-m-d");
+				$option["start"] = $hueco->getStart()->format("H:i:s");
+				$option["end"] = $hueco->getEnd()->format("H:i:s");
+				$votos_opcion = array();
+				$total = 0;
+				foreach($votes as $vote) {
+					if($hueco->getId() == $vote->getOptionId()->getId()){
+						$voto_individual = array();
+						$user = array();
+						$user["user_id"] = $vote->getUserId()->getId();
+						$user["name"] = $vote->getUserId()->getName();
+						$user["surname"] = $vote->getUserId()->getSurname();
+						$user["email"] = $vote->getUserId()->getEmail();
+						$user["pass"] = $vote->getUserId()->getPass();	
+						$voto_individual["user"] = $user;
+						$voto_individual["vote"] = $vote->getVote();
+						if ($vote->getVote() == "Y"){$total = $total + 1;}
+						array_push($votos_opcion, $voto_individual);
+					}
+			}
+			array_push($result, array(
+					"hueco" => $option,
+					"votos_opcion" => $votos_opcion,
+					"total" => $total
+				));
+		}
 		header($_SERVER["SERVER_PROTOCOL"] . " 200 Ok");
         header("Content-Type: application/json");
-        echo(json_encode($votes));
+        echo(json_encode($result));
 	}
 	
-	public function addVotes($survey_id, $data){
+	/**
+	* Action to add or update votes
+	*/
+	
+public function addVotes($survey_id = NULL, $data = NULL){
 		$currentUser = parent::authenticateUser();
 		
 		$options_survey= $this->voteMapper->findOptionsBySurveyId($survey_id);
@@ -55,13 +95,22 @@ class VoteRest extends BaseRest {
 			return;
 		}
 		$num=0;
-		while($num<sizeof($options_survey)){
-					$vote = new Vote ($currentUser,$options_survey[$num]->getId(),$data[$num]);
+		$creados = false;
+		while($num < sizeof($options_survey)){
+					$vote = new Vote ($currentUser->getId(),$options_survey[$num]->getId(),$data[$num]);
 					$num+=1;
-					header($_SERVER["SERVER_PROTOCOL"] . " 201 Created");
-					header("Content-Type: application/json");
-					echo(json_encode($vote));
+					if ($this->voteMapper->checkIfExists($vote->getUserId(),$vote->getOptionId())){
+						$this->voteMapper->update($vote);
+					}else{
+						$this->voteMapper->save($vote);
+						$creados = true;
+					}
         }
+		if ($creados){
+			header($_SERVER["SERVER_PROTOCOL"] . " 201 Created");
+		}else{
+			header($_SERVER["SERVER_PROTOCOL"] . " 200 Ok");
+		}
     }
 }
 
@@ -70,5 +119,5 @@ class VoteRest extends BaseRest {
 $votesRest = new VoteRest();
 URIDispatcher::getInstance()
 ->map("GET",	"/votes/$1", array($votesRest,"showVotes"))
-->map("PUT", "/votes/$1/$2", array($votesRest,"addVotes"));
+->map("PUT",	"/votes/$1", array($votesRest,"addVotes"));
 
