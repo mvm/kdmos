@@ -1,0 +1,37 @@
+<div>
+  {{#if isLogged}}
+  <ul class="navbar-nav justify-content-end">	
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">				
+      <li class="nav-item">
+	<i class="fas fa-user"></i><a href="#">{{currentUser.name}}</a>
+      </li>
+      <li class="nav-item">
+	<i class="fas fa-sign-out-alt"></i><a href="#" id="logoutbutton">{{i18n "Logout "}}</a>
+      </li>
+    </div>
+  </ul>
+  {{else}}
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" id="loginDrop" data-toggle="dropdown">{{ i18n 'Login' }}
+        <span class="caret"></span></a>
+      <div class="dropdown-menu" role="menu" aria-labelledby="loginDrop">
+        <form class="px-3 py-2" role="menuitem" tabindex="-1">
+          <div class="form-group">
+            <label for="loginEmail">{{ i18n "Email" }}</label>
+            <input type="text" class="form-control" id="loginEmail" placeholder="{{i18n 'Email'}}"><br>
+          </div>
+          <div class="form-group">
+            <label for="loginPass">{{i18n 'Password'}}</label>
+            <input type="password" id="loginPass" class="form-control" placeholder="{{i18n 'Password'}}"><br>
+          </div>
+          <input type="button" class="btn" id="loginSubmit" value="{{i18n 'Login'}}"/>
+        </form>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" id="registerlink" >{{i18n 'New?'}}<br>{{i18n 'Sign up'}}</a>
+      </div>
+    </div>
+  {{/if}}
+</div>

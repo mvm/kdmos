@@ -1,0 +1,26 @@
+
+<div id="date{{id}}_group" class="input-group date">
+  <input type="text"  id="date{{id}}_day"
+	 class="form-control datetimepicker-input col-6" 
+	 data-toggle="datetimepicker" 
+	 data-target="#date{{id}}_day" 
+	 placeholder="{{i18n 'Day...' }}"
+	 value="{{day}}"></input>
+  <input type="text" id="date{{id}}_start"
+	 class="form-control datetimepicker-input col-3"
+	 data-toggle="datetimepicker"
+	 data-target="#date{{id}}_start"
+	 placeholder="{{i18n 'Begin...'}}"
+	 value="{{start}}"></input>
+  <input type="text" id="date{{id}}_end"
+	 class="form-control datetimepicker-input col-3"
+	 data-toggle="datetimepicker"
+	 data-target="#date{{id}}_end"
+	 placeholder="{{ i18n 'End...'}}"
+	 value="{{end}}"></input>
+  <div class="input-group-append">
+      <div class="input-group-text">
+	<i id="date{{id}}_del" class="fa fa-times"></i>
+      </div>
+  </div>
+</div>

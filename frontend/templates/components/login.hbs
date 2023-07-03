@@ -1,0 +1,68 @@
+<span>
+{{#unless registerMode}}
+<div class="container-fluid">
+      <div class="row">
+      {{loginError}}
+        <div class="col-lg-4 col-sm-6">
+          <div class="card h-100">
+            <a href="#add-survey"><i class="card-img-top fas fa-plus fa-10x" alt="Card image"></i></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#add-survey">{{i18n 'Create Survey:'}}</a>
+              </h4>
+              <p class="card-text"> {{i18n 'Create a new survey and send a link for voting to any registered friend.'}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="card h-100">
+            <a href="#participated-surveys"><i class="card-img-top fas fa-search fa-10x" alt="Card image"></i></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#participated-surveys">{{i18n 'Search for surveys:'}}</a>
+              </h4>
+              <p class="card-text">{{i18n 'Search for surveys where you have voted for consulting its status and, if you want, update your vote.'}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="card h-100">
+            <a href="#created-surveys"><i class="card-img-top fas fa-search-plus fa-10x" alt="Card image"></i></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#created-surveys">{{i18n 'Search for your surveys:'}}</a>
+              </h4>
+              <p class="card-text">{{i18n 'Searh for the surveys that you created for consulting its status and, if you want, modify the options.'}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+	 {{/unless}}
+	 {{#if registerMode}}
+	  <div class="container mt-4" id="main">
+				<form action="index.php?controller=users&amp;action=register" method="POST">
+					<div class="row">
+                            <div class="col">
+								<div class="container mt-3 mb-3">
+								<h1>{{i18n 'Register'}}</h1>
+                                    <div class="form-group">
+                                        <input type="text" id="name" name="name" class="form-control" placeholder="{{i18n 'Name'}}"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="surname" name="surname" class="form-control" placeholder="{{i18n 'Surname'}}"></input>
+                                    </div>
+									<div class="form-group">
+                                        <input type="text" id="email" name="email" class="form-control" placeholder="{{ i18n 'Email'}}"></input>
+                                    </div>
+									<div class="form-group">
+                                        <input type="password" id="pass" name="pass" class="form-control" placeholder="{{ i18n 'Password'}}"></input>
+                                    </div>
+                                    <button type="submit" id="registerbutton" class="btn btn-light">{{i18n 'Sign up'}}</button>
+								</div>
+							</div>	
+					</div>
+				</form>
+		</div>
+		{{/if}}
+</span>

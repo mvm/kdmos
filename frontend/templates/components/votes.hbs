@@ -1,0 +1,44 @@
+<div>
+  <div class="container" id="main">
+    <h1 class="header" >{{survey.title}}</h1>
+    <p>{{survey.description}}</p>
+    <div class="container" align="center">			
+      <p><div class="divTable Tabla">
+		<div class="divTableRow">
+			<div class="divTableCell corner"></div>
+			{{#with votes.[0]}}
+				{{#each votos_opcion}}
+					<div class="divTableCell d-none d-sm-table-cell" >{{user.name}} {{user.surname}}</div>
+				{{/each}}
+			{{/with}}
+				<div class="divTableCell">Total</div>
+			
+		</div>
+		{{#each votes}}	                                
+		<div class="divTableRow">
+			{{#with hueco}}
+			<div class="divTableCell">{{day}} {{start}} {{end}}</div>
+			{{/with}}
+			{{#each votos_opcion}}
+			<div class="divTableCell">
+				{{#switch vote}}
+					{{#case "Y"}}
+					<i class="fas fa-2x fa-check option"></i>
+					{{/case}}
+					{{#case "N"}}
+					<i class="fas fa-2x fa-times option"></i>
+					{{/case}}
+					{{#case "NS"}}
+					<i class="fas fa-2x fa-question option"></i>
+					{{/case}}
+				{{/switch}}
+			</div>
+			{{/each}}
+			<div class="divTableCell">{{total}}</div>
+		</div>
+		{{/each}}
+	  </div></p>
+		<a href="#add-votes?id={{survey.id}}" type="button" class="btn btn-light">{{i18n 'Vote'}}</a>
+	  <a href="#participated-surveys" type="button" class="btn btn-light">{{i18n 'Go Back'}}</a>
+    </div>
+</div>

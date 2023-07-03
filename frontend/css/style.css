@@ -1,0 +1,138 @@
+body{
+	background-color: #f1faee;
+	font-family: 'Roboto', sans-serif;
+}
+
+#logo {
+	font-family: 'Kosugi Maru', sans-serif;
+	color:white;
+}
+
+#main {
+    margin-top: 24px;
+	background-color: #e63946;
+	border-radius: 20px;
+	color: white;
+	padding: 16px;
+}
+
+.main-control {
+    width: 100%;
+    font-family: 'Kosugi Maru', sans-serif;
+}
+
+.header {
+    font-family: 'Kosugi Maru', sans-serif;
+}
+
+.navbar {
+	background-color: #1d3557;
+	color:white;
+}
+
+.navbar a {
+    color: white;
+}
+
+.dropdown-menu a {
+    color: black;
+}
+
+.navbar-toggler-icon{
+	position:left;
+}
+
+.btn-group{
+	position: center;
+}
+
+
+.card{
+	margin:30px;
+}
+
+.card-img-top{
+	border-radius: 20px;
+	background-color: #e63946;
+	padding: 30px;
+}
+
+
+.fas{
+	margin:3px;
+}
+
+.fa-10x{
+	text-align:center;
+	color:black;
+}
+
+.fa-bars{
+	color: white;
+}
+
+.fa-check.option{
+	color: #77b300;
+}
+
+.fa-question.option{
+	color: orange;
+}
+
+.fa-times.option{
+	color: red;
+}
+
+
+footer{
+	background-color: #1d3557;
+}
+
+footer a {
+    color: white;
+}
+
+@media only screen and (min-width: 396px){
+	.dropdown-menu{
+		right: 0;
+		left: auto;
+	}
+}
+
+.Tabla {
+	font-family: 'Roboto', sans-serif;
+    background-color: #1d3557;
+	text-align: center;
+	width:100%;
+
+}
+
+.divTable.Tabla .divTableCell, .divTable.Tabla .divTableHead {
+  	padding: 3px;
+	border: 1px solid #F1FAEE;
+
+
+}
+
+.divTable.Tabla .divTableCell.corner{
+	border: 0px solid #F1FAEE;
+    background-color: #e63946;
+	
+}
+
+.divTable.Tabla .divTableBody .divTableCell {
+
+  font-size: 10px;
+  color: #1d3557;
+}
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableCell, .divTableHead { display: table-cell;}
+
+.blackicon {
+    color: black;
+}
+
+.whiteicon {
+    color: white;
+}

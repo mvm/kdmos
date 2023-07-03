@@ -1,0 +1,10 @@
+<tr key="{{id}}">
+  <td>{{title}}</td>
+  <td>{{description}}</td>
+  <td>
+    <a href="#votes?id={{id}}"><i class="whiteicon fa fa-id-card" aria-hidden="true"></i></a>
+    {{#if canEdit}}
+    <a href="#edit-survey?id={{id}}"><i class="fa fa-pen whiteicon" aria-hidden="true"></i></a>
+    {{/if}}
+  </td>
+</tr>

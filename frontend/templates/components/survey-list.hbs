@@ -1,0 +1,20 @@
+<div>
+  <div class="container" id="main">
+    <h1 class="header" >{{i18n 'Surveys'}}</h1>
+    {{#if surveys.length}}
+    <div class="container" align="center">			
+      <table>
+	<tr>
+	  <th>{{i18n 'Title'}}</th>
+	  <th>{{i18n 'Description'}}</th>
+	  <th>{{i18n 'Status/Update'}}</th>
+	</tr>
+	<tbody>
+	  {{#each surveys}}
+	  <tr fronty-component="SurveyRowComponent" key="{{id}}" model="surveys[{{@index}}]" id="item-{{id}}"></tr>
+	  {{/each}}
+	</tbody>
+      </table>
+      {{/if}}
+    </div>
+  </div>
